@@ -1152,7 +1152,7 @@ add_action('rest_api_init', function () {
 	register_rest_route(
 		'ology-custom/v1',
 		'/beers/',
-		array(
+		array (
 			'methods' => 'GET',
 			'callback' => 'ology_get_beers_api',
 		)
@@ -1181,7 +1181,7 @@ function ology_get_beers_api(WP_REST_Request $request)
 		// Fetch containers data for each post
 		$containers = get_beer_containers_meta_for_custom_endpoint($post->ID);
 
-		return array(
+		return array (
 			'ID' => $post->ID,
 			'title' => $post->post_title,
 			'status' => $post->post_status,
@@ -1262,7 +1262,11 @@ function get_menus_for_location($data)
 
 			// Convert images object to an array of objects to preserve order
 			foreach ($images as $id => $url) {
-				$imageArray[] = array('id' => $id, 'url' => $url);
+				// Fetch alt text for the image
+				$alt_text = get_post_meta($id, '_wp_attachment_image_alt', true);
+
+				// Include alt text in the image array
+				$imageArray[] = array('id' => $id, 'url' => $url, 'alt' => $alt_text);
 			}
 
 			// Add menu details to the response
@@ -1273,6 +1277,7 @@ function get_menus_for_location($data)
 			);
 		}
 	}
+
 
 
 	// Query for beers at the location
