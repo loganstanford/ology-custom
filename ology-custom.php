@@ -1320,15 +1320,21 @@ function get_menus_for_location($data)
 			}
 		}
 
-		$beers[] = array(
-			'ID' => $post->ID,
-			'title' => $post->post_title,
-			'style' => getOlogyParentStyle($post->ID)->slug,
-			'description' => $post->post_excerpt,
-			'abv' => get_post_meta($post->ID, 'ology_abv', true),
-			'containers' => getOlogyPostContainers($post->ID, $location_slug),
-			'categories' => $category_names,
-		);
+		// Fetch Untappd rating and rating count from post meta
+        $untappd_rating = get_post_meta($post->ID, 'ology_untappd_rating', true);
+        $untappd_rating_count = get_post_meta($post->ID, 'ology_untappd_rating_count', true);
+
+        $beers[] = array(
+            'ID' => $post->ID,
+            'title' => $post->post_title,
+            'style' => getOlogyParentStyle($post->ID)->slug,
+            'description' => $post->post_excerpt,
+            'abv' => get_post_meta($post->ID, 'ology_abv', true),
+            'containers' => getOlogyPostContainers($post->ID, $location_slug),
+            'categories' => $category_names,
+            'rating' => $untappd_rating, // Add rating from post meta
+            'rating_count' => $untappd_rating_count, // Add rating count from post meta
+        );
 	}
 
 	// Combine menus and beers in the response
