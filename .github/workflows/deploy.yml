@@ -2,21 +2,36 @@ name: Deploy WordPress Plugin
 
 on:
   push:
-    branches: [main] # or any branch you want to deploy from
+    branches: [main]
 
 jobs:
-  deploy:
+  deploy-to-development:
     runs-on: ubuntu-latest
-
+    environment: development
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-
-      - name: Deploy to SFTP
+      - name: Deploy to SFTP (Development)
         uses: appleboy/scp-action@master
         with:
           host: ${{ secrets.SFTP_SERVER }}
           username: ${{ secrets.SFTP_USERNAME }}
           password: ${{ secrets.SFTP_PASSWORD }}
-          source: "./*" # Adjust the path to your plugin directory
-          target: "/home/ologybrewing/website/wp-content/plugins/ology-custom" # The target directory on your server
+          source: "./*"
+          target: "/home/ologybrewing/website-dev/wp-content/plugins/ology-custom"
+
+  deploy-to-production:
+    runs-on: ubuntu-latest
+    needs: deploy-to-development
+    environment: production
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Deploy to SFTP (Production)
+        uses: appleboy/scp-action@master
+        with:
+          host: ${{ secrets.SFTP_SERVER }}
+          username: ${{ secrets.SFTP_USERNAME }}
+          password: ${{ secrets.SFTP_PASSWORD }}
+          source: "./*"
+          target: "/home/ologybrewing/website/wp-content/plugins/ology-custom"

@@ -1004,6 +1004,12 @@ function getUntappdItems($locationName = null, $debug = false)
 					// Update tap number
 					update_post_meta($post_id, 'ology_' . $location_term[0]->slug . '_tap-number', $item['tap_number']);
 
+					// Update Untappd rating and rating count
+					if (isset($item['rating']) && isset($item['rating_count'])) {
+						update_post_meta($post_id, 'ology_untappd_rating', $item['rating']);
+						update_post_meta($post_id, 'ology_untappd_rating_count', $item['rating_count']);
+					}
+
 				}
 			}
 		}
@@ -1161,36 +1167,40 @@ add_action('rest_api_init', function () {
 
 function ology_get_beers_api(WP_REST_Request $request)
 {
-	// Prepare query arguments
-	$args = array(
-		'post_type' => 'beer_ontap',
-		'post_status' => array('publish', 'draft'),
-		'posts_per_page' => -1
-	);
+    // Prepare query arguments
+    $args = array(
+        'post_type' => 'beer_ontap',
+        'post_status' => array('publish', 'draft'),
+        'posts_per_page' => -1
+    );
 
-	// Execute the query
-	$query = new WP_Query($args);
+    // Execute the query
+    $query = new WP_Query($args);
 
-	// Check if there are posts
-	if (!$query->have_posts()) {
-		return new WP_REST_Response(array(), 200);
-	}
+    // Check if there are posts
+    if (!$query->have_posts()) {
+        return new WP_REST_Response(array(), 200);
+    }
 
-	// Prepare and return the response
-	$beers = array_map(function ($post) {
-		// Fetch containers data for each post
-		$containers = get_beer_containers_meta_for_custom_endpoint($post->ID);
+    // Prepare and return the response
+    $beers = array_map(function ($post) {
+        // Fetch containers data for each post
+        $containers = get_beer_containers_meta_for_custom_endpoint($post->ID);
+        $rating = get_post_meta($post->ID, 'ology_untappd_rating', true);
+        $rating_count = get_post_meta($post->ID, 'ology_untappd_rating_count', true);
 
-		return array (
-			'ID' => $post->ID,
-			'title' => $post->post_title,
-			'status' => $post->post_status,
-			'content' => $post->post_content,
-			'containers' => $containers // Add containers data to the response
-		);
-	}, $query->posts);
+        return array (
+            'ID' => $post->ID,
+            'title' => $post->post_title,
+            'status' => $post->post_status,
+            'content' => $post->post_content,
+            'containers' => $containers, // Add containers data to the response
+            'rating' => $rating, // Add rating to the response
+            'rating_count' => $rating_count // Add rating count to the response
+        );
+    }, $query->posts);
 
-	return new WP_REST_Response($beers, 200);
+    return new WP_REST_Response($beers, 200);
 }
 
 function get_beer_containers_meta_for_custom_endpoint($post_id, $locations = null)
