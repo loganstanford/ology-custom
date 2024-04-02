@@ -7,7 +7,7 @@
  **/
 
 global $debug;
-$debug = true;
+$debug = false;
 
 define('OLOGY_ELEMENTS_URL', plugins_url('/', __FILE__));
 define('OLOGY_ELEMENTS_PATH', plugin_dir_path(__FILE__));
@@ -505,7 +505,7 @@ add_action('elementor/widgets/widgets_registered', 'ology_trainer_elements_load_
 function register_ology_beers_widget($widgets_manager)
 {
 
-	require_once(__DIR__ . '/widgets/ology-beers-widget.php');
+	require_once (__DIR__ . '/widgets/ology-beers-widget.php');
 
 	$widgets_manager->register(new \Elementor_Ology_Beers_Widget());
 
@@ -515,7 +515,7 @@ add_action('elementor/widgets/register', 'register_ology_beers_widget');
 function register_ology_cocktails_widget($widgets_manager)
 {
 
-	require_once(__DIR__ . '/widgets/ology-cocktails-widget.php');
+	require_once (__DIR__ . '/widgets/ology-cocktails-widget.php');
 
 	$widgets_manager->register(new \Elementor_Ology_Cocktails_Widget());
 
@@ -525,7 +525,7 @@ add_action('elementor/widgets/register', 'register_ology_cocktails_widget');
 function register_ology_elementor_widgets($widgets_manager)
 {
 
-	require_once(__DIR__ . '/widgets/ology-menu-widget.php');
+	require_once (__DIR__ . '/widgets/ology-menu-widget.php');
 
 	$widgets_manager->register(new \Ology_Menu_Widget());
 }
@@ -754,7 +754,7 @@ function ology_updateUntappdContainers($item, $post_id, $location, $debug = fals
 				// If container size is a single digit (e.g. 3, 5, 6 etc.) add 0 in front of slug for sorting purposes
 				$sizeSlug = strlen($sizeName) === 3 ? "0" . $sizeName : $sizeName;
 				break;
-			case(str_ends_with($name, 'pk') || str_ends_with($name, 'pack')):
+			case (str_ends_with($name, 'pk') || str_ends_with($name, 'pack')):
 				$sizeName = '4 Pack';
 				$sizeSlug = 'tg-04-pack';
 				$isToGo = true;
@@ -1167,40 +1167,40 @@ add_action('rest_api_init', function () {
 
 function ology_get_beers_api(WP_REST_Request $request)
 {
-    // Prepare query arguments
-    $args = array(
-        'post_type' => 'beer_ontap',
-        'post_status' => array('publish', 'draft'),
-        'posts_per_page' => -1
-    );
+	// Prepare query arguments
+	$args = array(
+		'post_type' => 'beer_ontap',
+		'post_status' => array('publish', 'draft'),
+		'posts_per_page' => -1
+	);
 
-    // Execute the query
-    $query = new WP_Query($args);
+	// Execute the query
+	$query = new WP_Query($args);
 
-    // Check if there are posts
-    if (!$query->have_posts()) {
-        return new WP_REST_Response(array(), 200);
-    }
+	// Check if there are posts
+	if (!$query->have_posts()) {
+		return new WP_REST_Response(array(), 200);
+	}
 
-    // Prepare and return the response
-    $beers = array_map(function ($post) {
-        // Fetch containers data for each post
-        $containers = get_beer_containers_meta_for_custom_endpoint($post->ID);
-        $rating = get_post_meta($post->ID, 'ology_untappd_rating', true);
-        $rating_count = get_post_meta($post->ID, 'ology_untappd_rating_count', true);
+	// Prepare and return the response
+	$beers = array_map(function ($post) {
+		// Fetch containers data for each post
+		$containers = get_beer_containers_meta_for_custom_endpoint($post->ID);
+		$rating = get_post_meta($post->ID, 'ology_untappd_rating', true);
+		$rating_count = get_post_meta($post->ID, 'ology_untappd_rating_count', true);
 
-        return array (
-            'ID' => $post->ID,
-            'title' => $post->post_title,
-            'status' => $post->post_status,
-            'content' => $post->post_content,
-            'containers' => $containers, // Add containers data to the response
-            'rating' => $rating, // Add rating to the response
-            'rating_count' => $rating_count // Add rating count to the response
-        );
-    }, $query->posts);
+		return array (
+			'ID' => $post->ID,
+			'title' => $post->post_title,
+			'status' => $post->post_status,
+			'content' => $post->post_content,
+			'containers' => $containers, // Add containers data to the response
+			'rating' => $rating, // Add rating to the response
+			'rating_count' => $rating_count // Add rating count to the response
+		);
+	}, $query->posts);
 
-    return new WP_REST_Response($beers, 200);
+	return new WP_REST_Response($beers, 200);
 }
 
 function get_beer_containers_meta_for_custom_endpoint($post_id, $locations = null)
@@ -1321,20 +1321,20 @@ function get_menus_for_location($data)
 		}
 
 		// Fetch Untappd rating and rating count from post meta
-        $untappd_rating = get_post_meta($post->ID, 'ology_untappd_rating', true);
-        $untappd_rating_count = get_post_meta($post->ID, 'ology_untappd_rating_count', true);
+		$untappd_rating = get_post_meta($post->ID, 'ology_untappd_rating', true);
+		$untappd_rating_count = get_post_meta($post->ID, 'ology_untappd_rating_count', true);
 
-        $beers[] = array(
-            'ID' => $post->ID,
-            'title' => $post->post_title,
-            'style' => getOlogyParentStyle($post->ID)->slug,
-            'description' => $post->post_excerpt,
-            'abv' => get_post_meta($post->ID, 'ology_abv', true),
-            'containers' => getOlogyPostContainers($post->ID, $location_slug),
-            'categories' => $category_names,
-            'rating' => $untappd_rating, // Add rating from post meta
-            'rating_count' => $untappd_rating_count, // Add rating count from post meta
-        );
+		$beers[] = array(
+			'ID' => $post->ID,
+			'title' => $post->post_title,
+			'style' => getOlogyParentStyle($post->ID)->slug,
+			'description' => $post->post_excerpt,
+			'abv' => get_post_meta($post->ID, 'ology_abv', true),
+			'containers' => getOlogyPostContainers($post->ID, $location_slug),
+			'categories' => $category_names,
+			'rating' => $untappd_rating, // Add rating from post meta
+			'rating_count' => $untappd_rating_count, // Add rating count from post meta
+		);
 	}
 
 	// Combine menus and beers in the response

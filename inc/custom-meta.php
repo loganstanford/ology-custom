@@ -367,7 +367,6 @@ function ology_get_spirit_options()
 	return $options;
 }
 
-
 add_action('cmb2_admin_init', 'ology_portfolio_meta_box_repeat');
 function ology_portfolio_meta_box_repeat()
 {
