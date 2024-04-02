@@ -310,8 +310,13 @@ function ology_cocktails_meta_box()
 			'name' => esc_html__('Select Spirits', 'progression-elements-ontap'),
 			'desc' => esc_html__('Select the spirits used in this cocktail', 'progression-elements-ontap'),
 			'id' => $prefix . 'select_spirits',
-			'type' => 'pw_multiselect',
-			'options' => ology_get_spirit_options(),
+			'type' => 'taxonomy_multicheck',
+			'taxonomy' => 'spirit_ology', // Replace with your taxonomy slug
+			'text' => array(
+				'no_terms_text' => esc_html__('Sorry, no spirits could be found.', 'progression-elements-ontap')
+			),
+			'remove_default' => 'true',
+			'select_all_button' => false,
 		)
 	);
 
@@ -347,6 +352,24 @@ function ology_cocktails_meta_box()
 			'type' => 'text',
 		)
 	);
+}
+
+function ology_get_spirit_options()
+{
+	$spirits = get_posts(
+		array(
+			'post_type' => 'spirit_ology',
+			'numberposts' => -1,
+			'orderby' => 'title',
+			'order' => 'ASC'
+		)
+	);
+
+	$options = array();
+	foreach ($spirits as $spirit) {
+		$options[$spirit->ID] = $spirit->post_title;
+	}
+	return $options;
 }
 
 
@@ -404,24 +427,6 @@ function ology_portfolio_meta_box_repeat()
 			'sanitization_cb' => 'ology_html_allow', // function should return a sanitized value
 		)
 	);
-}
-
-function ology_get_spirit_options()
-{
-	$spirits = get_posts(
-		array(
-			'post_type' => 'spirit_ology',
-			'numberposts' => -1,
-			'orderby' => 'title',
-			'order' => 'ASC'
-		)
-	);
-
-	$options = array();
-	foreach ($spirits as $spirit) {
-		$options[$spirit->ID] = $spirit->post_title;
-	}
-	return $options;
 }
 
 add_action('cmb2_admin_init', 'ology_featured_item_meta_box');
