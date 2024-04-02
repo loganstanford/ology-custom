@@ -307,6 +307,16 @@ function ology_cocktails_meta_box()
 
 	$ology_cmb->add_field(
 		array(
+			'name' => esc_html__('Select Spirits', 'progression-elements-ontap'),
+			'desc' => esc_html__('Select the spirits used in this cocktail', 'progression-elements-ontap'),
+			'id' => $prefix . 'select_spirits',
+			'type' => 'pw_multiselect',
+			'options' => ology_get_spirit_options(),
+		)
+	);
+
+	$ology_cmb->add_field(
+		array(
 			'name' => esc_html__('Featured Image/Button Link', 'progression-elements-ontap'),
 			'id' => $prefix . 'blog_featured_image_link',
 			'type' => 'select',
@@ -394,6 +404,24 @@ function ology_portfolio_meta_box_repeat()
 			'sanitization_cb' => 'ology_html_allow', // function should return a sanitized value
 		)
 	);
+}
+
+function ology_get_spirit_options()
+{
+	$spirits = get_posts(
+		array(
+			'post_type' => 'spirit_ology',
+			'numberposts' => -1,
+			'orderby' => 'title',
+			'order' => 'ASC'
+		)
+	);
+
+	$options = array();
+	foreach ($spirits as $spirit) {
+		$options[$spirit->ID] = $spirit->post_title;
+	}
+	return $options;
 }
 
 add_action('cmb2_admin_init', 'ology_featured_item_meta_box');
@@ -513,28 +541,32 @@ function get_rest_featured_image($object, $field_name, $request)
 }
 
 add_action('cmb2_admin_init', 'register_file_list_metabox');
-function register_file_list_metabox() {
-    $prefix = 'ology_';
+function register_file_list_metabox()
+{
+	$prefix = 'ology_';
 
-    $cmb = new_cmb2_box(array(
-        'id'            => $prefix . 'file_list_metabox',
-        'title'         => __('Filler images', 'cmb2'),
-        'object_types'  => array('menu_ology'), // Post type
-        'context'       => 'normal',
-        'priority'      => 'high',
-        'show_names'    => true,
-    ));
+	$cmb = new_cmb2_box(
+		array(
+			'id' => $prefix . 'file_list_metabox',
+			'title' => __('Filler images', 'cmb2'),
+			'object_types' => array('menu_ology'), // Post type
+			'context' => 'normal',
+			'priority' => 'high',
+			'show_names' => true,
+		)
+	);
 
-    $cmb->add_field(array(
-        'name' => __('Images', 'cmb2'),
-        'desc' => __('Upload or add multiple images/attachments.', 'cmb2'),
-        'id'   => $prefix . 'file_list',
-        'type' => 'file_list',
-        'preview_size' => array(100, 100), // Default: array(50, 50)
-        // Optional, override default CMB2 styles for repeatable rows
-        'options' => array(
-            'add_upload_files_text' => __('Add or Upload Files', 'cmb2'),
-        ),
-    ));
+	$cmb->add_field(
+		array(
+			'name' => __('Images', 'cmb2'),
+			'desc' => __('Upload or add multiple images/attachments.', 'cmb2'),
+			'id' => $prefix . 'file_list',
+			'type' => 'file_list',
+			'preview_size' => array(100, 100), // Default: array(50, 50)
+			// Optional, override default CMB2 styles for repeatable rows
+			'options' => array(
+				'add_upload_files_text' => __('Add or Upload Files', 'cmb2'),
+			),
+		)
+	);
 }
-
