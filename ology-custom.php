@@ -1188,20 +1188,28 @@ function ology_get_beers_api(WP_REST_Request $request)
 		$containers = get_beer_containers_meta_for_custom_endpoint($post->ID);
 		$rating = get_post_meta($post->ID, 'ology_untappd_rating', true);
 		$rating_count = get_post_meta($post->ID, 'ology_untappd_rating_count', true);
+		$untappd_id = get_post_meta($post->ID, 'ology_untappd_id', true);
 
-		return array (
+		// Get featured image URL if it exists
+		$featured_image_id = get_post_thumbnail_id($post->ID);
+		$featured_image_url = $featured_image_id ? wp_get_attachment_url($featured_image_id) : null;
+
+		return array(
 			'ID' => $post->ID,
 			'title' => $post->post_title,
 			'status' => $post->post_status,
 			'content' => $post->post_content,
 			'containers' => $containers, // Add containers data to the response
 			'rating' => $rating, // Add rating to the response
-			'rating_count' => $rating_count // Add rating count to the response
+			'rating_count' => $rating_count, // Add rating count to the response
+			'ology_untappd_id' => $untappd_id, // Include Untappd ID in the response
+			'featured_image_url' => $featured_image_url // Include featured image URL in the response
 		);
 	}, $query->posts);
 
 	return new WP_REST_Response($beers, 200);
 }
+
 
 function get_beer_containers_meta_for_custom_endpoint($post_id, $locations = null)
 {
