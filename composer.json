@@ -1,0 +1,23 @@
+{
+    "name": "logan/ology-custom",
+    "type": "project",
+    "require": {
+        "johnpbloch/wordpress": "^6.5"
+    },
+    "autoload": {
+        "psr-4": {
+            "Logan\\OlogyCustom\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Logan Stanford",
+            "email": "logan@onscripttech.com"
+        }
+    ],
+    "config": {
+        "allow-plugins": {
+            "johnpbloch/wordpress-core-installer": true
+        }
+    }
+}
