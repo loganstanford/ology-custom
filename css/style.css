@@ -86,6 +86,10 @@
     font-size: 1.4rem;
 }
 
+.hidden {
+    display: none;
+}
+
 .ology-menu-item-container {
     background-color: #2a2a2a;
     display: inline;
