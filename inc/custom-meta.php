@@ -28,6 +28,14 @@ function ology_beer_ontap_meta()
 		)
 	);
 
+	    // Add new field for Beer Description
+		$ology_beer_cmb->add_field(array(
+			'name' => esc_html__('Beer Description', 'progression-elements-ontap'),
+			'id'   => $prefix . 'beer_description',
+			'type' => 'textarea_small',
+			'desc' => esc_html__('Description of the beer, shown instead of the excerpt if available.', 'progression-elements-ontap'),
+		));
+
 	$ology_beer_cmb->add_field(
 		array(
 			'name' => esc_html__('Flavor/Hops', 'progression-elements-ontap'),
