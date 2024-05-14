@@ -11,13 +11,13 @@ debug = False
 if debug:
     WORDPRESS_API_URL = 'https://website-dev.ologybrewing.com/wp-json/wp/v2'
     CUSTOM_WORDPRESS_API_URL = 'https://website-dev.ologybrewing.com/wp-json/ology-custom/v1'
-    PLACEHOLDER_IMAGE_URL = 'https://website-dev.ologybrewing.com/wp-content/uploads/2023/04/logo_orange-1.png'
+    PLACEHOLDER_IMAGE_URL = 'https://website-dev.ologybrewing.com/wp-content/uploads/2024/05/logo_orange-1-1.png'
 else:
     WORDPRESS_API_URL = 'https://ologybrewing.com/wp-json/wp/v2'
     CUSTOM_WORDPRESS_API_URL = 'https://ologybrewing.com/wp-json/ology-custom/v1'
-    PLACEHOLDER_IMAGE_URL = 'https://ologybrewing.com/wp-content/uploads/2023/04/logo_orange-1.png'
+    PLACEHOLDER_IMAGE_URL = 'https://ologybrewing.com/wp-content/uploads/2024/05/logo_orange-1-1.png'
 
-PLACEHOLDER_IMAGE_ID = 790
+PLACEHOLDER_IMAGE_ID = 54137
 DROPBOX_ROOT_FOLDER = '/Ology Brewing - Beer'
 
 DROPBOX_ACCESS_TOKEN = config.DROPBOX_ACCESS_TOKEN
