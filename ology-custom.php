@@ -1161,6 +1161,7 @@ add_action('rest_api_init', function () {
 		array (
 			'methods' => 'GET',
 			'callback' => 'ology_get_beers_api',
+			'permission_callback' => '__return_true'
 		)
 	);
 });
@@ -1244,6 +1245,7 @@ function register_menu_rest()
 		array(
 			'methods' => 'GET',
 			'callback' => 'get_menus_for_location',
+			'permission_callback' => '__return_true'
 		)
 	);
 }
