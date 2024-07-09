@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Plugin Name: Ology Brewing Co
  * Description: Custom plugin for Ology Brewing Co.
@@ -244,7 +245,6 @@ function ology_food_post_type_init()
 			'rewrite' => array('slug' => 'food-category'),
 		)
 	);
-
 }
 
 add_action('init', 'ology_spirit_post_type_init');
@@ -426,7 +426,6 @@ function ology_custom_containers()
 			'default' => false
 		)
 	);
-
 }
 
 add_action('init', 'ology_custom_locations');
@@ -475,52 +474,52 @@ function ology_custom_locations()
 add_action('init', 'ology_pinball_leaderboard_post_type_init');
 function ology_pinball_leaderboard_post_type_init()
 {
-    $labels = array(
-        'name' => _x('Pinball Leaderboards', 'Post type general name', 'default'),
-        'singular_name' => _x('Pinball Leaderboard', 'Post type singular name', 'default'),
-        'menu_name' => _x('Pinball Leaderboards', 'Admin Menu text', 'default'),
-        'name_admin_bar' => _x('Pinball Leaderboard', 'Add New on Toolbar', 'default'),
-        'add_new' => __('Add New', 'default'),
-        'add_new_item' => __('Add New Leaderboard', 'default'),
-        'new_item' => __('New Leaderboard', 'default'),
-        'edit_item' => __('Edit Leaderboard', 'default'),
-        'view_item' => __('View Leaderboard', 'default'),
-        'all_items' => __('All Leaderboards', 'default'),
-        'search_items' => __('Search Leaderboards', 'default'),
-        'parent_item_colon' => __('Parent Leaderboard:', 'default'),
-        'not_found' => __('No leaderboards found.', 'default'),
-        'not_found_in_trash' => __('No leaderboards found in Trash.', 'default'),
-        'featured_image' => _x('Leaderboard featured Image', 'Overrides the “Featured Image” phrase for this post type. Added in 4.3', 'default'),
-        'set_featured_image' => _x('Set featured image', 'Overrides the “Set featured image” phrase for this post type. Added in 4.3', 'default'),
-        'remove_featured_image' => _x('Remove featured image', 'Overrides the “Remove featured image” phrase for this post type. Added in 4.3', 'default'),
-        'use_featured_image' => _x('Use as featured image', 'Overrides the “Use as featured image” phrase for this post type. Added in 4.3', 'default'),
-        'archives' => _x('Leaderboard archives', 'The post type archive label used in nav menus. Default “Post Archives”. Added in 4.4', 'default'),
-        'insert_into_item' => _x('Insert into leaderboard', 'Overrides the “Insert into post”/”Insert into page” phrase (used when inserting media into a post). Added in 4.4', 'default'),
-        'uploaded_to_this_item' => _x('Uploaded to this leaderboard', 'Overrides the “Uploaded to this post”/”Uploaded to this page” phrase (used when viewing media attached to a post). Added in 4.4', 'default'),
-        'filter_items_list' => _x('Filter leaderboards list', 'Screen reader text for the filter links heading on the post type listing screen. Default “Filter posts list”/”Filter pages list”. Added in 4.4', 'default'),
-        'items_list_navigation' => _x('Leaderboards list navigation', 'Screen reader text for the pagination heading on the post type listing screen. Default “Posts list navigation”/”Pages list navigation”. Added in 4.4', 'default'),
-        'items_list' => _x('Leaderboards list', 'Screen reader text for the items list heading on the post type listing screen. Default “Posts list”/”Pages list”. Added in 4.4', 'default'),
-    );
+	$labels = array(
+		'name' => _x('Pinball Leaderboards', 'Post type general name', 'default'),
+		'singular_name' => _x('Pinball Leaderboard', 'Post type singular name', 'default'),
+		'menu_name' => _x('Pinball Leaderboards', 'Admin Menu text', 'default'),
+		'name_admin_bar' => _x('Pinball Leaderboard', 'Add New on Toolbar', 'default'),
+		'add_new' => __('Add New', 'default'),
+		'add_new_item' => __('Add New Leaderboard', 'default'),
+		'new_item' => __('New Leaderboard', 'default'),
+		'edit_item' => __('Edit Leaderboard', 'default'),
+		'view_item' => __('View Leaderboard', 'default'),
+		'all_items' => __('All Leaderboards', 'default'),
+		'search_items' => __('Search Leaderboards', 'default'),
+		'parent_item_colon' => __('Parent Leaderboard:', 'default'),
+		'not_found' => __('No leaderboards found.', 'default'),
+		'not_found_in_trash' => __('No leaderboards found in Trash.', 'default'),
+		'featured_image' => _x('Leaderboard featured Image', 'Overrides the “Featured Image” phrase for this post type. Added in 4.3', 'default'),
+		'set_featured_image' => _x('Set featured image', 'Overrides the “Set featured image” phrase for this post type. Added in 4.3', 'default'),
+		'remove_featured_image' => _x('Remove featured image', 'Overrides the “Remove featured image” phrase for this post type. Added in 4.3', 'default'),
+		'use_featured_image' => _x('Use as featured image', 'Overrides the “Use as featured image” phrase for this post type. Added in 4.3', 'default'),
+		'archives' => _x('Leaderboard archives', 'The post type archive label used in nav menus. Default “Post Archives”. Added in 4.4', 'default'),
+		'insert_into_item' => _x('Insert into leaderboard', 'Overrides the “Insert into post”/”Insert into page” phrase (used when inserting media into a post). Added in 4.4', 'default'),
+		'uploaded_to_this_item' => _x('Uploaded to this leaderboard', 'Overrides the “Uploaded to this post”/”Uploaded to this page” phrase (used when viewing media attached to a post). Added in 4.4', 'default'),
+		'filter_items_list' => _x('Filter leaderboards list', 'Screen reader text for the filter links heading on the post type listing screen. Default “Filter posts list”/”Filter pages list”. Added in 4.4', 'default'),
+		'items_list_navigation' => _x('Leaderboards list navigation', 'Screen reader text for the pagination heading on the post type listing screen. Default “Posts list navigation”/”Pages list navigation”. Added in 4.4', 'default'),
+		'items_list' => _x('Leaderboards list', 'Screen reader text for the items list heading on the post type listing screen. Default “Posts list”/”Pages list”. Added in 4.4', 'default'),
+	);
 
-    $args = array(
-        'labels' => $labels,
-        'public' => true,
-        'publicly_queryable' => true,
-        'show_ui' => true,
-        'show_in_menu' => true,
-        'query_var' => true,
-        'rewrite' => array('slug' => 'pinball-leaderboards'),
-        'capability_type' => 'post',
-        'has_archive' => true,
-        'hierarchical' => false,
-        'menu_position' => null,
-        'menu_icon' => 'dashicons-games',
-        'supports' => array('title', 'editor', 'author', 'thumbnail', 'excerpt'),
-        'show_in_rest' => true,
-        'description' => __('A custom post type for pinball leaderboards', 'default')
-    );
+	$args = array(
+		'labels' => $labels,
+		'public' => true,
+		'publicly_queryable' => true,
+		'show_ui' => true,
+		'show_in_menu' => true,
+		'query_var' => true,
+		'rewrite' => array('slug' => 'pinball-leaderboards'),
+		'capability_type' => 'post',
+		'has_archive' => true,
+		'hierarchical' => false,
+		'menu_position' => null,
+		'menu_icon' => 'dashicons-games',
+		'supports' => array('title', 'editor', 'author', 'thumbnail', 'excerpt'),
+		'show_in_rest' => true,
+		'description' => __('A custom post type for pinball leaderboards', 'default')
+	);
 
-    register_post_type('pinball_leaderboard', $args);
+	register_post_type('pinball_leaderboard', $args);
 }
 
 
@@ -557,27 +556,25 @@ add_action('elementor/widgets/widgets_registered', 'ology_trainer_elements_load_
 function register_ology_beers_widget($widgets_manager)
 {
 
-	require_once (__DIR__ . '/widgets/ology-beers-widget.php');
+	require_once(__DIR__ . '/widgets/ology-beers-widget.php');
 
 	$widgets_manager->register(new \Elementor_Ology_Beers_Widget());
-
 }
 add_action('elementor/widgets/register', 'register_ology_beers_widget');
 
 function register_ology_cocktails_widget($widgets_manager)
 {
 
-	require_once (__DIR__ . '/widgets/ology-cocktails-widget.php');
+	require_once(__DIR__ . '/widgets/ology-cocktails-widget.php');
 
 	$widgets_manager->register(new \Elementor_Ology_Cocktails_Widget());
-
 }
 add_action('elementor/widgets/register', 'register_ology_cocktails_widget');
 
 function register_ology_elementor_widgets($widgets_manager)
 {
 
-	require_once (__DIR__ . '/widgets/ology-menu-widget.php');
+	require_once(__DIR__ . '/widgets/ology-menu-widget.php');
 
 	$widgets_manager->register(new \Ology_Menu_Widget());
 }
@@ -638,6 +635,7 @@ function ology_updateUntappdPost($item, $debug = false)
 			'post_content' => '',
 			'post_excerpt' => $item['description'],
 			'post_type' => 'beer_ontap',
+			'post_status' => 'publish',
 			'meta_input' => array(
 				'ology_untappd_id' => $item['untappd_id']
 			)
@@ -686,17 +684,17 @@ function ology_updateUntappdStyleTerms($item, $post_id, $debug = false)
 
 		switch ($parent_style) {
 
-			// If Pilsner, import as Lager
+				// If Pilsner, import as Lager
 			case str_contains($parent_style, 'Pilsner'):
 				$parent_style = "Lager";
 				break;
 
-			// If Pale Ale, import as IPA
+				// If Pale Ale, import as IPA
 			case str_contains($parent_style, 'Pale Ale'):
 				$parent_style = "IPA";
 				break;
 
-			// If not in valid styles or match a condition above, set as Other.
+				// If not in valid styles or match a condition above, set as Other.
 			default:
 				$parent_style = "Other";
 				break;
@@ -1021,7 +1019,6 @@ function getUntappdItems($locationName = null, $debug = false)
 				}
 			}
 			wp_reset_postdata();
-
 		} else {
 			echo '<pre>';
 			echo "No Posts Found for $loc";
@@ -1061,7 +1058,6 @@ function getUntappdItems($locationName = null, $debug = false)
 						update_post_meta($post_id, 'ology_untappd_rating', $item['rating']);
 						update_post_meta($post_id, 'ology_untappd_rating_count', $item['rating_count']);
 					}
-
 				}
 			}
 		}
@@ -1100,7 +1096,6 @@ function getOlogyToGoContainers()
 		$options[$slug] = $name;
 	}
 	return $options;
-
 }
 
 function getOlogyContainers()
@@ -1210,7 +1205,7 @@ add_action('rest_api_init', function () {
 	register_rest_route(
 		'ology-custom/v1',
 		'/beers/',
-		array (
+		array(
 			'methods' => 'GET',
 			'callback' => 'ology_get_beers_api',
 			'permission_callback' => '__return_true'
@@ -1410,55 +1405,52 @@ function get_menus_for_location($data)
 
 
 add_action('rest_api_init', function () {
-    register_rest_route('pinball/v1', '/(?P<location>[a-zA-Z0-9-]+)', array(
-        'methods' => 'GET',
-        'callback' => 'get_pinball_slides',
-        'permission_callback' => '__return_true',
-        'args' => array(
-            'location' => array(
-                'validate_callback' => function($param, $request, $key) {
-                    return preg_match('/^[a-zA-Z0-9-]+$/', $param); // Validates the location to only include alphanumeric characters and dashes
-                }
-            ),
-        ),
-    ));
+	register_rest_route('pinball/v1', '/(?P<location>[a-zA-Z0-9-]+)', array(
+		'methods' => 'GET',
+		'callback' => 'get_pinball_slides',
+		'permission_callback' => '__return_true',
+		'args' => array(
+			'location' => array(
+				'validate_callback' => function ($param, $request, $key) {
+					return preg_match('/^[a-zA-Z0-9-]+$/', $param); // Validates the location to only include alphanumeric characters and dashes
+				}
+			),
+		),
+	));
 });
 
-function get_pinball_slides($request) {
-    $location_key = $request->get_param('location');
+function get_pinball_slides($request)
+{
+	$location_key = $request->get_param('location');
 
-    // Query the slides based on the location
-    $args = array(
-        'post_type'      => 'pinball_leaderboard',
-        'posts_per_page' => -1,
-        'post_status'    => 'publish',
-        'meta_query'     => array(
-            array(
-                'key'     => 'ology_pinball_location',
-                'value'   => $location_key,
-                'compare' => '='
-            ),
-        ),
-    );
-    $posts = get_posts($args);
-    $data = [];
+	// Query the slides based on the location
+	$args = array(
+		'post_type'      => 'pinball_leaderboard',
+		'posts_per_page' => -1,
+		'post_status'    => 'publish',
+		'meta_query'     => array(
+			array(
+				'key'     => 'ology_pinball_location',
+				'value'   => $location_key,
+				'compare' => '='
+			),
+		),
+	);
+	$posts = get_posts($args);
+	$data = [];
 
-    foreach ($posts as $post) {
-        $serialized_slides = get_post_meta($post->ID, 'ology_pinball_slides', true);
-        $slides = maybe_unserialize($serialized_slides);
+	foreach ($posts as $post) {
+		$serialized_slides = get_post_meta($post->ID, 'ology_pinball_slides', true);
+		$slides = maybe_unserialize($serialized_slides);
 
-        foreach ($slides as $slide) {
-            $data[] = [
-                'type'         => $slide['type'] ?? '',
-                'url'          => $slide['type'] === 'webpage' ? ($slide['webpage_url'] ?? '') : ($slide['image-video'] ?? ''),
-                'display_time' => $slide['display_time'] ?? '10',  // Defaulting to 10 seconds if not set
-            ];
-        }
-    }
+		foreach ($slides as $slide) {
+			$data[] = [
+				'type'         => $slide['type'] ?? '',
+				'url'          => $slide['type'] === 'webpage' ? ($slide['webpage_url'] ?? '') : ($slide['image-video'] ?? ''),
+				'display_time' => $slide['display_time'] ?? '10',  // Defaulting to 10 seconds if not set
+			];
+		}
+	}
 
-    return new WP_REST_Response($data, 200);
+	return new WP_REST_Response($data, 200);
 }
-
-
-
-
