@@ -121,6 +121,5 @@ def main():
             set_featured_image(post_id, PLACEHOLDER_IMAGE_ID)
             print(f'No Dropbox image found for post {post_id}, using placeholder.')
 
-
 if __name__ == '__main__':
     main()
