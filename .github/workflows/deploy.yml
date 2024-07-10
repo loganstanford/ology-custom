@@ -11,6 +11,7 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+
       - name: Deploy to SFTP (Development)
         uses: appleboy/scp-action@master
         with:
@@ -20,6 +21,14 @@ jobs:
           source: "./*"
           target: "/home/ologybrewing/website-dev/wp-content/plugins/ology-custom"
 
+      - name: Set Permissions (Development)
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SFTP_SERVER }}
+          username: ${{ secrets.SFTP_USERNAME }}
+          password: ${{ secrets.SFTP_PASSWORD }}
+          script: chmod +x /home/ologybrewing/website-dev/wp-content/plugins/ology-custom/dropbox-sync.py
+
   deploy-to-production:
     runs-on: ubuntu-latest
     needs: deploy-to-development
@@ -27,6 +36,7 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+
       - name: Deploy to SFTP (Production)
         uses: appleboy/scp-action@master
         with:
@@ -35,3 +45,11 @@ jobs:
           password: ${{ secrets.SFTP_PASSWORD }}
           source: "./*"
           target: "/home/ologybrewing/website/wp-content/plugins/ology-custom"
+
+      - name: Set Permissions (Production)
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SFTP_SERVER }}
+          username: ${{ secrets.SFTP_USERNAME }}
+          password: ${{ secrets.SFTP_PASSWORD }}
+          script: chmod +x /home/ologybrewing/website/wp-content/plugins/ology-custom/dropbox-sync.py
