@@ -20,12 +20,32 @@ else:
 PLACEHOLDER_IMAGE_ID = 54137
 DROPBOX_ROOT_FOLDER = '/Ology Brewing - Beer'
 
-DROPBOX_ACCESS_TOKEN = config.DROPBOX_ACCESS_TOKEN
 WORDPRESS_USERNAME = config.WORDPRESS_USERNAME
 WORDPRESS_PASSWORD = config.WORDPRESS_PASSWORD
 
+def get_access_token():
+    url = "https://api.dropboxapi.com/oauth2/token"
+    headers = {
+        'Content-Type': 'application/x-www-form-urlencoded',
+    }
+    data = {
+        'grant_type': 'refresh_token',
+        'refresh_token': config.REFRESH_TOKEN,
+        'client_id': config.APP_KEY,
+        'client_secret': config.APP_SECRET
+    }
+    
+    response = requests.post(url, headers=headers, data=data)
+    
+    if response.status_code == 200:
+        json_response = response.json()
+        return json_response['access_token']
+    else:
+        raise Exception("Failed to get access token: " + response.text)
+
 def get_dropbox_client():
-    return dropbox.Dropbox(DROPBOX_ACCESS_TOKEN)
+    access_token = get_access_token()
+    return dropbox.Dropbox(access_token)
 
 def get_wordpress_headers():
     credentials = f"{WORDPRESS_USERNAME}:{WORDPRESS_PASSWORD}"
