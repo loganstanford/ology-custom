@@ -1116,6 +1116,34 @@ function getOlogyContainers()
 	}
 }
 
+function get_all_unique_containers()
+{
+	global $wpdb;
+
+	// Query to get all meta values for keys that start with 'ology_' and end with '_availability'
+	$results = $wpdb->get_col("
+        SELECT DISTINCT meta_value 
+        FROM $wpdb->postmeta 
+        WHERE meta_key LIKE 'ology_%_availability'
+    ");
+
+	$unique_containers = array();
+
+	// Loop through results and unserialize to get unique containers
+	foreach ($results as $result) {
+		$availability = maybe_unserialize($result);
+		if (is_array($availability)) {
+			foreach ($availability as $container) {
+				if (!in_array($container, $unique_containers)) {
+					$unique_containers[] = $container;
+				}
+			}
+		}
+	}
+
+	return $unique_containers;
+}
+
 function getOlogyLocations()
 {
 	$terms = get_terms(
