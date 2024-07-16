@@ -324,7 +324,7 @@ class Elementor_Ology_Beers_Widget extends \Elementor\Widget_Base
 				'label_block' => true,
 				'multiple' => false,
 				'type' => \Elementor\Controls_Manager::SELECT2,
-				'options' => array_combine(get_all_unique_containers(), get_all_unique_containers()),
+				'options' => getOlogyContainers(),
 			]
 		);
 
@@ -504,12 +504,7 @@ class Elementor_Ology_Beers_Widget extends \Elementor\Widget_Base
 
 		if (!empty($settings[$prefix . 'availability'])) {
 			$availability_meta = $settings[$prefix . 'availability'];
-
-			$availability_operator = 'IN';
-		} else {
-			$availability_meta = '';
-			$availability_formatidsexpand = '';
-			$availability_operator = 'NOT IN';
+			$availability_operator = 'LIKE';
 		}
 
 		$args = array(
@@ -523,22 +518,6 @@ class Elementor_Ology_Beers_Widget extends \Elementor\Widget_Base
 			'posts_per_page' => $posts_per_page,
 			'paged' => $paged,
 			'offset' => $offset_new,
-			'meta_query' => array(
-				'relation' => 'OR',
-				array(
-					'key' => 'ology_custom_order',
-					'compare' => 'EXISTS'
-				),
-				array(
-					'key' => 'ology_custom_order',
-					'compare' => 'NOT EXISTS'
-				),
-				array(
-					'key' => 'ology_' . $location_slug . '_availability',
-					'value' => '"' . $availability_meta . '"',
-					'compare' => 'LIKE'
-				)
-			),
 			'tax_query' => array(
 				array(
 					'taxonomy' => 'beer-category',
@@ -560,6 +539,16 @@ class Elementor_Ology_Beers_Widget extends \Elementor\Widget_Base
 				),
 			),
 		);
+
+		if (!empty($availability_meta) && !empty($location_slug)) {
+			$args['meta_query'] = array(
+				array(
+					'key' => 'ology_' . $location_slug . '_availability',
+					'value' => $availability_meta,
+					'compare' => $availability_operator
+				)
+			);
+		}
 
 
 		$beersloop = new \WP_Query($args);
