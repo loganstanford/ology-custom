@@ -808,7 +808,7 @@ function ology_updateUntappdContainers($item, $post_id, $location, $debug = fals
 				// If container size is a single digit (e.g. 3, 5, 6 etc.) add 0 in front of slug for sorting purposes
 				$sizeSlug = strlen($sizeName) === 3 ? "0" . $sizeName : $sizeName;
 				break;
-			case (str_ends_with($name, 'pk') || str_ends_with($name, 'pack')):
+			case (str_ends_with($name, 'pk') || str_ends_with($name, 'pack') || str_ends_with($name, 'Pack')):
 				$sizeName = '4 Pack';
 				$sizeSlug = 'tg-04-pack';
 				$isToGo = true;
