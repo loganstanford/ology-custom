@@ -1047,6 +1047,11 @@ function getUntappdItems($locationName = null, $debug = false)
 				foreach ($section['items'] as $item) {
 					$debug == true ? printf("</br>Item: " . $item['name']) : null;
 
+					// Skip if the item is not from Ology
+					if ($item['untappd_brewery_id'] != 328707) {
+						continue;
+					}
+
 					// Create/Update post
 					$post_id = ology_updateUntappdPost($item, $debug);
 
