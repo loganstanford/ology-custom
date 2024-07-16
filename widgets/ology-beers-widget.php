@@ -253,7 +253,7 @@ class Elementor_Ology_Beers_Widget extends \Elementor\Widget_Base
 		);
 
 		$this->add_control(
-			$prefix . 'availability',
+			$prefix . 'show_availability',
 			[
 				'label' => esc_html__('Display Availability', 'elementor-ology-beers-widget'),
 				'type' => \Elementor\Controls_Manager::SWITCHER,
