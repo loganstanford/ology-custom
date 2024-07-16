@@ -352,7 +352,7 @@ class Elementor_Ology_Beers_Widget extends \Elementor\Widget_Base
 					'menu_order' => esc_html__('Menu Order', 'elementor-ology-beers-widget'),
 					'modified' => esc_html__('Last Modified', 'elementor-ology-beers-widget'),
 					'rand' => esc_html__('Random', 'elementor-ology-beers-widget'),
-					'meta_value_num' => esc_html__('Custom Order', 'elementor-ology-beers-widget'),
+					'ology_custom_order' => esc_html__('Custom Order', 'elementor-ology-beers-widget'),
 				],
 			]
 		);
@@ -510,8 +510,7 @@ class Elementor_Ology_Beers_Widget extends \Elementor\Widget_Base
 		$args = array(
 			'post_type' => 'beer_ontap',
 			'ignore_sticky_posts' => 1,
-			'orderby' => $settings[$prefix . 'post_order_sorting'],
-			'order' => $settings[$prefix . 'post_order'],
+			'orderby' => array($settings[$prefix . 'post_order_sorting'] => $settings[$prefix . 'post_order'], 'post_date' => 'DESC'),
 			'posts_per_page' => $posts_per_page,
 			'paged' => $paged,
 			'offset' => $offset_new,
@@ -535,20 +534,28 @@ class Elementor_Ology_Beers_Widget extends \Elementor\Widget_Base
 					'operator' => $location_operator
 				),
 			),
+			'meta_query' => array(
+				'relation' => 'AND',  // This assumes you want all conditions to be met
+				array(
+					'relation' => 'OR',
+					array(
+						'key' => 'ology_custom_order',
+						'compare' => 'EXISTS'
+					),
+					array(
+						'key' => 'ology_custom_order',
+						'compare' => 'NOT EXISTS'
+					)
+				)
+			),
 		);
 
 		if (!empty($availability_meta) && !empty($location_slug)) {
-			$args['meta_query'] = array(
-				array(
-					'key' => 'ology_' . $location_slug . '_availability',
-					'value' => $availability_meta,
-					'compare' => $availability_operator
-				)
+			$args['meta_query'][] = array(
+				'key' => 'ology_' . $location_slug . '_availability',
+				'value' => $availability_meta,
+				'compare' => $availability_operator
 			);
-		}
-
-		if ($settings[$prefix . 'post_order_sorting'] == 'meta_value_num') {
-			$args['meta_key'] = 'ology_custom_order';
 		}
 
 		$beersloop = new \WP_Query($args);
