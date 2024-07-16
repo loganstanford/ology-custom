@@ -509,12 +509,9 @@ class Elementor_Ology_Beers_Widget extends \Elementor\Widget_Base
 
 		$args = array(
 			'post_type' => 'beer_ontap',
-			'orderby' => array(
-				'meta_value_num' => $settings[$prefix . 'post_order'],
-				'date' => 'DESC'
-			),
-			'order' => $settings[$prefix . 'post_order'],
 			'ignore_sticky_posts' => 1,
+			'orderby' => $settings[$prefix . 'post_order_sorting'],
+			'order' => $settings[$prefix . 'post_order'],
 			'posts_per_page' => $posts_per_page,
 			'paged' => $paged,
 			'offset' => $offset_new,
@@ -550,6 +547,9 @@ class Elementor_Ology_Beers_Widget extends \Elementor\Widget_Base
 			);
 		}
 
+		if ($settings[$prefix . 'post_order_sorting'] == 'meta_value_num') {
+			$args['meta_key'] = 'ology_custom_order';
+		}
 
 		$beersloop = new \WP_Query($args);
 
