@@ -1495,3 +1495,24 @@ function get_pinball_slides($request)
 
 	return new WP_REST_Response($data, 200);
 }
+
+/**
+ * Customize modern dropdown search results
+ *
+ * @link https://wpforms.com/developers/how-to-customize-the-modern-dropdown-field/
+ */
+
+function wpf_dev_modern_dropdown_search_results($config, $forms)
+{
+
+	// Change 519 to an ID of your actual form or remove this condition to apply to all forms.
+	if (!array_key_exists(519, $forms)) {
+		return $config;
+	}
+
+	// Change 6 to a large number to show all the matching results for every search (might impact performance).
+	$config['searchResultLimit'] = 6;
+
+	return $config;
+}
+add_filter('wpforms_field_select_choicesjs_config', 'wpf_dev_modern_dropdown_search_results', 10, 2);
