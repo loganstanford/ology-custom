@@ -160,6 +160,10 @@ img {
     font-family: 'Inter', sans-serif;
 }
 
+.tribe-events-calendar-series-archive__container {
+    display: none;
+}
+
 @media only screen and (min-width: 1200px) {
     .row-cols-lg-5 > .ology-menu-item {
         width: calc(1 / 5 * (100vw - 36px));
