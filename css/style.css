@@ -156,6 +156,10 @@ img {
     margin-right: -4px !important;
 }
 
+#menu-left-temp > li.normal-item-pro.menu-item.menu-item-type-custom.menu-item-object-custom.menu-item-has-children.menu-item-87352 li {
+    font-family: 'Inter', sans-serif;
+}
+
 @media only screen and (min-width: 1200px) {
     .row-cols-lg-5 > .ology-menu-item {
         width: calc(1 / 5 * (100vw - 36px));
