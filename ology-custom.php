@@ -1516,3 +1516,67 @@ function wpf_dev_modern_dropdown_search_results($config, $forms)
 	return $config;
 }
 add_filter('wpforms_field_select_choicesjs_config', 'wpf_dev_modern_dropdown_search_results', 10, 2);
+
+/**
+ * Hide login URL
+ */
+function custom_login_url()
+{
+	return home_url('/login');
+}
+add_filter('login_url', 'custom_login_url', 10, 3);
+
+function custom_login_page()
+{
+	if (strpos($_SERVER['REQUEST_URI'], '/login') !== false) {
+		include ABSPATH . 'wp-login.php';
+		exit;
+	}
+}
+add_action('init', 'custom_login_page');
+
+function redirect_login_page()
+{
+	$login_page = home_url('/login');
+	$page_viewed = basename($_SERVER['REQUEST_URI']);
+
+	if ($page_viewed == "wp-login.php" && $_SERVER['REQUEST_METHOD'] == 'GET') {
+		wp_redirect($login_page);
+		exit;
+	}
+}
+add_action('init', 'redirect_login_page');
+
+/*
+ * Update login logo
+ */
+function custom_login_logo()
+{
+	// Get the plugin directory URL
+	$plugin_dir_url = plugin_dir_url(__FILE__);
+?>
+<style type="text/css">
+#login h1 a,
+.login h1 a {
+    background-image: url('<?php echo esc_url($plugin_dir_url . 'logo_ology_orange.png'); ?>');
+    width: 320px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    padding-bottom: 0px;
+}
+</style>
+<?php
+}
+add_action('login_enqueue_scripts', 'custom_login_logo');
+
+function custom_login_logo_url()
+{
+	return home_url(); // Change this if you want to link to a different page
+}
+add_filter('login_headerurl', 'custom_login_logo_url');
+
+function custom_login_logo_url_title()
+{
+	return get_bloginfo('name'); // Change this to the desired title
+}
+add_filter('login_headertext', 'custom_login_logo_url_title');
