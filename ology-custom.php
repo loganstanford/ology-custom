@@ -1580,3 +1580,32 @@ function custom_login_logo_url_title()
 	return get_bloginfo('name'); // Change this to the desired title
 }
 add_filter('login_headertext', 'custom_login_logo_url_title');
+
+/**
+ * Redirect production staff to the production page after login
+ */
+function production_staff_login_redirect($redirect_to, $request, $user)
+{
+	// Check if the user has the 'production-staff' role
+	if (isset($user->roles) && is_array($user->roles) && in_array('um_production-staff', $user->roles)) {
+		// Redirect to the desired URL
+		return home_url('/production');
+	}
+
+	// Return the default redirect URL if not 'production-staff'
+	return $redirect_to;
+}
+add_filter('login_redirect', 'production_staff_login_redirect', 10, 3);
+
+/**
+ * Redirect Bronwyn to the WPForms dashboard after login
+ */
+function bronwyn_login_redirect($redirect_to, $request, $user)
+{
+
+	// Check if the user has the 'bronwyn' role
+	if (isset($user->roles) && is_array($user->roles) && in_array('bronwyn', $user->roles)) {
+		// Redirect to the desired URL
+		return admin_url('admin.php?page=wpforms-overview');
+	}
+}
