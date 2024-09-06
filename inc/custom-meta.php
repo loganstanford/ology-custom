@@ -28,13 +28,13 @@ function ology_beer_ontap_meta()
 		)
 	);
 
-	    // Add new field for Beer Description
-		$ology_beer_cmb->add_field(array(
-			'name' => esc_html__('Beer Description', 'progression-elements-ontap'),
-			'id'   => $prefix . 'beer_description',
-			'type' => 'textarea_small',
-			'desc' => esc_html__('Description of the beer, shown instead of the excerpt if available.', 'progression-elements-ontap'),
-		));
+	// Add new field for Beer Description
+	$ology_beer_cmb->add_field(array(
+		'name' => esc_html__('Beer Description', 'progression-elements-ontap'),
+		'id'   => $prefix . 'beer_description',
+		'type' => 'textarea_small',
+		'desc' => esc_html__('Description of the beer, shown instead of the excerpt if available.', 'progression-elements-ontap'),
+	));
 
 	$ology_beer_cmb->add_field(
 		array(
@@ -100,10 +100,8 @@ function ology_beer_ontap_meta()
 					'id' => $prefix . $loc_key . '_' . $con_key . '_price'
 				)
 			);
-		}
-		;
-	}
-	;
+		};
+	};
 }
 
 add_action('cmb2_admin_init', 'ology_page_meta_box');
@@ -145,6 +143,15 @@ function ology_page_meta_box()
 		array(
 			'name' => esc_html__('Disable Page Title', 'progression-elements-ontap'),
 			'id' => $prefix . 'disable_page_title',
+			'type' => 'checkbox',
+		)
+	);
+
+	$ology_cmb->add_field(
+		array(
+			'name' => esc_html__('Require Login', 'progression-elements-ontap'),
+			'desc' => esc_html__('If checked, only logged-in users can view this page.', 'progression-elements-ontap'),
+			'id' => $prefix . 'require_login',
 			'type' => 'checkbox',
 		)
 	);
@@ -477,8 +484,6 @@ function ology_featured_item_meta_box()
 				'id' => $prefix . $loc_key . '_isFeatured'
 			)
 		);
-
-
 	}
 }
 
@@ -509,8 +514,7 @@ function get_item_featured_location_meta($post, $field_name, $request)
 {
 	$locations = getOlogyLocations();
 
-	$meta = array(
-	);
+	$meta = array();
 
 	foreach ($locations as $loc_key => $loc_value) {
 		$loc_price = get_post_meta($post['id'], 'ology_' . $loc_key . '_price');
@@ -578,95 +582,96 @@ function register_file_list_metabox()
 }
 
 add_action('cmb2_admin_init', 'ology_pinball_leaderboard_meta');
-function ology_pinball_leaderboard_meta() {
-    $prefix = 'ology_pinball_';
+function ology_pinball_leaderboard_meta()
+{
+	$prefix = 'ology_pinball_';
 
-    $cmb_pinball = new_cmb2_box(array(
-        'id'            => $prefix . 'slides_details',
-        'title'         => esc_html__('Pinball Leaderboard Slides', 'progression-elements-ontap'),
-        'object_types'  => array('pinball_leaderboard'), // Post type
-        'context'       => 'normal',
-        'priority'      => 'high',
-        'show_names'    => true,
-    ));
+	$cmb_pinball = new_cmb2_box(array(
+		'id'            => $prefix . 'slides_details',
+		'title'         => esc_html__('Pinball Leaderboard Slides', 'progression-elements-ontap'),
+		'object_types'  => array('pinball_leaderboard'), // Post type
+		'context'       => 'normal',
+		'priority'      => 'high',
+		'show_names'    => true,
+	));
 
-    $locations = getOlogyLocations();
+	$locations = getOlogyLocations();
 
-    $cmb_pinball->add_field(array(
-        'name'             => 'Location',
-        'desc'             => 'Select the location for this leaderboard',
-        'id'               => $prefix . 'location',
-        'type'             => 'select',
-        'show_option_none' => true,
-        'default'          => 'none',
-        'options'          => $locations,
-    ));
+	$cmb_pinball->add_field(array(
+		'name'             => 'Location',
+		'desc'             => 'Select the location for this leaderboard',
+		'id'               => $prefix . 'location',
+		'type'             => 'select',
+		'show_option_none' => true,
+		'default'          => 'none',
+		'options'          => $locations,
+	));
 
-    $group_field_id = $cmb_pinball->add_field(array(
-        'id'          => $prefix . 'slides',
-        'type'        => 'group',
-        'description' => __('Add slides for the leaderboard', 'progression-elements-ontap'),
-        'options'     => array(
-            'group_title'   => __('Slide {#}', 'progression-elements-ontap'), // {#} gets replaced by row number
-            'add_button'    => __('Add Another Slide', 'progression-elements-ontap'),
-            'remove_button' => __('Remove Slide', 'progression-elements-ontap'),
-            'sortable'      => true, // true to enable the sorting of repeated groups
-        ),
-    ));
+	$group_field_id = $cmb_pinball->add_field(array(
+		'id'          => $prefix . 'slides',
+		'type'        => 'group',
+		'description' => __('Add slides for the leaderboard', 'progression-elements-ontap'),
+		'options'     => array(
+			'group_title'   => __('Slide {#}', 'progression-elements-ontap'), // {#} gets replaced by row number
+			'add_button'    => __('Add Another Slide', 'progression-elements-ontap'),
+			'remove_button' => __('Remove Slide', 'progression-elements-ontap'),
+			'sortable'      => true, // true to enable the sorting of repeated groups
+		),
+	));
 
-    // Slide Type
-    $cmb_pinball->add_group_field($group_field_id, array(
-        'name'             => 'Slide Type',
-        'id'               => 'type',
-        'type'             => 'select',
-        'show_option_none' => false,
-        'default'          => 'webpage',
-        'options'          => array(
-            'webpage' => __('Webpage URL', 'progression-elements-ontap'),
-            'image'   => __('Image', 'progression-elements-ontap'),
-            'video'   => __('Video', 'progression-elements-ontap'),
-        ),
-    ));
+	// Slide Type
+	$cmb_pinball->add_group_field($group_field_id, array(
+		'name'             => 'Slide Type',
+		'id'               => 'type',
+		'type'             => 'select',
+		'show_option_none' => false,
+		'default'          => 'webpage',
+		'options'          => array(
+			'webpage' => __('Webpage URL', 'progression-elements-ontap'),
+			'image'   => __('Image', 'progression-elements-ontap'),
+			'video'   => __('Video', 'progression-elements-ontap'),
+		),
+	));
 
-    // Webpage URL
-    $cmb_pinball->add_group_field($group_field_id, array(
-        'name'             => 'Webpage URL',
-        'id'               => 'webpage_url',
-        'type'             => 'text_url',
-        'attributes'       => array(
-            'data-conditional-id'    => wp_json_encode(array($group_field_id, 'type')),
-            'data-conditional-value' => 'webpage',
-        ),
-    ));
+	// Webpage URL
+	$cmb_pinball->add_group_field($group_field_id, array(
+		'name'             => 'Webpage URL',
+		'id'               => 'webpage_url',
+		'type'             => 'text_url',
+		'attributes'       => array(
+			'data-conditional-id'    => wp_json_encode(array($group_field_id, 'type')),
+			'data-conditional-value' => 'webpage',
+		),
+	));
 
-    // Image
-    $cmb_pinball->add_group_field($group_field_id, array(
-        'name' => 'Image/Video',
-        'id'   => 'image-video',
-        'type' => 'file',
-        'options' => array(
-            'url' => false, // Hide the text input for the url
-        ),
-        'text' => array(
-            'add_upload_file_text' => 'Add Image/Video' // Change upload button text. Default: "Add or Upload File"
-        ),
-        'query_args' => array('type' => 'image'),
-        'attributes' => array(
-            'data-conditional-id'    => wp_json_encode(array($group_field_id, 'type')),
-            'data-conditional-value' => 'image',
-        ),
-    ));
+	// Image
+	$cmb_pinball->add_group_field($group_field_id, array(
+		'name' => 'Image/Video',
+		'id'   => 'image-video',
+		'type' => 'file',
+		'options' => array(
+			'url' => false, // Hide the text input for the url
+		),
+		'text' => array(
+			'add_upload_file_text' => 'Add Image/Video' // Change upload button text. Default: "Add or Upload File"
+		),
+		'query_args' => array('type' => 'image'),
+		'attributes' => array(
+			'data-conditional-id'    => wp_json_encode(array($group_field_id, 'type')),
+			'data-conditional-value' => 'image',
+		),
+	));
 
-    // Display time for each slide in seconds
-    $cmb_pinball->add_group_field($group_field_id, array(
-        'name' => 'Display Time',
-        'id'   => 'display_time',
-        'type' => 'text_small',
-        'description' => 'Set the display time for each slide in seconds.',
-        'default' => '10',  // Set default value to 10 seconds
-        'attributes' => array(
-            'type' => 'number',
-            'pattern' => '\d*',
-        ),
-    ));
+	// Display time for each slide in seconds
+	$cmb_pinball->add_group_field($group_field_id, array(
+		'name' => 'Display Time',
+		'id'   => 'display_time',
+		'type' => 'text_small',
+		'description' => 'Set the display time for each slide in seconds.',
+		'default' => '10',  // Set default value to 10 seconds
+		'attributes' => array(
+			'type' => 'number',
+			'pattern' => '\d*',
+		),
+	));
 }

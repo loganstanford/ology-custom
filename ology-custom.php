@@ -526,6 +526,20 @@ function ology_pinball_leaderboard_post_type_init()
 	register_post_type('pinball_leaderboard', $args);
 }
 
+function ology_check_page_login_requirement()
+{
+	if (is_page() && !is_user_logged_in()) {
+		$require_login = get_post_meta(get_the_ID(), 'ology_require_login', true);
+		if ($require_login) {
+			$current_url = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+			$login_url = wp_login_url($current_url);
+			wp_redirect($login_url);
+			exit;
+		}
+	}
+}
+add_action('template_redirect', 'ology_check_page_login_requirement');
+
 
 register_activation_hook(__FILE__, 'ology_activate_plugin');
 function ology_activate_plugin()
@@ -1555,16 +1569,16 @@ function custom_login_logo()
 	// Get the plugin directory URL
 	$plugin_dir_url = plugin_dir_url(__FILE__);
 ?>
-<style type="text/css">
-#login h1 a,
-.login h1 a {
-    background-image: url('<?php echo esc_url($plugin_dir_url . 'logo_ology_orange.png'); ?>');
-    width: 320px;
-    background-size: contain;
-    background-repeat: no-repeat;
-    padding-bottom: 0px;
-}
-</style>
+	<style type="text/css">
+		#login h1 a,
+		.login h1 a {
+			background-image: url('<?php echo esc_url($plugin_dir_url . 'logo_ology_orange.png'); ?>');
+			width: 320px;
+			background-size: contain;
+			background-repeat: no-repeat;
+			padding-bottom: 0px;
+		}
+	</style>
 <?php
 }
 add_action('login_enqueue_scripts', 'custom_login_logo');
@@ -1609,3 +1623,14 @@ function bronwyn_login_redirect($redirect_to, $request, $user)
 		return admin_url('admin.php?page=wpforms-overview');
 	}
 }
+
+function redirect_to_login_if_not_logged_in()
+{
+	// Check if the user is on the 'production' page and not logged in
+	if (is_page('production') && !is_user_logged_in()) {
+		// Redirect to the login page
+		wp_redirect(wp_login_url(get_permalink()));
+		exit();
+	}
+}
+add_action('template_redirect', 'redirect_to_login_if_not_logged_in');
