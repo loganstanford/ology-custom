@@ -934,108 +934,80 @@ function get_ology_toast_beer_data()
     $item_details_table = $wpdb->prefix . 'ologytoast_item_details';
     $item_modifiers_table = $wpdb->prefix . 'ologytoast_item_modifiers';
 
-    $columns = array(
-        0 => 'id',
-        1 => 'location',
-        2 => 'sent_date',
-        3 => 'menu_item',
-        4 => 'modifier_name',
-        5 => 'gross_price',
-        6 => 'net_price',
-        7 => 'quantity',
-        8 => 'discount',
-        9 => 'tax',
-        10 => 'total'
-    );
+    // Set a longer time limit for this operation
+    set_time_limit(120);
 
-    $limit = $_POST['length'];
-    $start = $_POST['start'];
-    $order = $columns[$_POST['order'][0]['column']];
-    $dir = $_POST['order'][0]['dir'];
+    // Prepare the base query
+    $query = "FROM $item_details_table i
+              LEFT JOIN $item_modifiers_table im ON i.order_id = im.order_id
+                  AND i.item_id = im.parent_menu_selection_item_id
+                  AND i.sent_date = im.sent_date
+              WHERE i.sales_category = 'Draft Beer' AND i.void_status = 0";
 
-    $query = "
-        SELECT 
-            i.id, i.location, i.sent_date, i.menu_item, im.modifier_name,
-            i.gross_price, i.net_price, i.quantity, i.discount, i.tax, 
-            i.gross_price - i.discount + i.tax as total
-        FROM 
-            $item_details_table i
-        LEFT JOIN 
-            (SELECT 
-                im2.*,
-                ROW_NUMBER() OVER (PARTITION BY im2.order_id, im2.parent_menu_selection_item_id, im2.sent_date, im2.gross_price 
-                                   ORDER BY im2.id) as rn
-            FROM 
-                $item_modifiers_table im2
-            WHERE 
-                im2.void_status = 0) im
-        ON 
-            i.order_id = im.order_id
-            AND i.item_id = im.parent_menu_selection_item_id
-            AND i.sent_date = im.sent_date
-            AND i.gross_price = im.gross_price
-            AND im.rn = 1
-        WHERE 
-            i.sales_category = 'Draft Beer'
-            AND i.void_status = 0
-    ";
-
+    // Handle filters
     $where_clauses = array();
+    $where_args = array();
 
-    // Handle date range
     if (!empty($_POST['start_date']) && !empty($_POST['end_date'])) {
-        $where_clauses[] = $wpdb->prepare(
-            "DATE(i.sent_date) BETWEEN %s AND %s",
-            $_POST['start_date'],
-            $_POST['end_date']
-        );
+        $where_clauses[] = "DATE(i.sent_date) BETWEEN %s AND %s";
+        $where_args[] = $_POST['start_date'];
+        $where_args[] = $_POST['end_date'];
     }
 
-    // Handle time range
     if (!empty($_POST['start_time']) && !empty($_POST['end_time'])) {
-        $where_clauses[] = $wpdb->prepare(
-            "TIME(i.sent_date) BETWEEN %s AND %s",
-            $_POST['start_time'],
-            $_POST['end_time']
-        );
+        $where_clauses[] = "TIME(i.sent_date) BETWEEN %s AND %s";
+        $where_args[] = $_POST['start_time'];
+        $where_args[] = $_POST['end_time'];
     }
 
-    // Handle location filter
     if (!empty($_POST['location'])) {
         $locations = is_array($_POST['location']) ? $_POST['location'] : [$_POST['location']];
         $placeholders = implode(',', array_fill(0, count($locations), '%s'));
-        $where_clauses[] = $wpdb->prepare("i.location IN ($placeholders)", $locations);
+        $where_clauses[] = "i.location IN ($placeholders)";
+        $where_args = array_merge($where_args, $locations);
     }
 
-    // Handle menu item filter
     if (!empty($_POST['menu_item'])) {
         $menu_items = is_array($_POST['menu_item']) ? $_POST['menu_item'] : [$_POST['menu_item']];
         $placeholders = implode(',', array_fill(0, count($menu_items), '%s'));
-        $where_clauses[] = $wpdb->prepare("i.menu_item IN ($placeholders)", $menu_items);
+        $where_clauses[] = "i.menu_item IN ($placeholders)";
+        $where_args = array_merge($where_args, $menu_items);
     }
 
-    // Handle modifier filter
     if (!empty($_POST['modifier'])) {
         $modifiers = is_array($_POST['modifier']) ? $_POST['modifier'] : [$_POST['modifier']];
         $placeholders = implode(',', array_fill(0, count($modifiers), '%s'));
-        $where_clauses[] = $wpdb->prepare("im.modifier_name IN ($placeholders)", $modifiers);
+        $where_clauses[] = "im.modifier_name IN ($placeholders)";
+        $where_args = array_merge($where_args, $modifiers);
     }
 
     if (!empty($where_clauses)) {
         $query .= " AND " . implode(" AND ", $where_clauses);
     }
 
-    $total_query = "SELECT COUNT(1) FROM ($query) AS combined_table";
-    $total = $wpdb->get_var($total_query);
+    // Prepare the data query
+    $columns = array('id', 'location', 'sent_date', 'menu_item', 'modifier_name', 'gross_price', 'net_price', 'quantity', 'discount', 'tax');
+    $order_column = $columns[$_POST['order'][0]['column']];
+    $order_dir = $_POST['order'][0]['dir'];
+    $limit = intval($_POST['length']);
+    $start = intval($_POST['start']);
 
-    $data_query = $query . " ORDER BY $order $dir LIMIT $start, $limit";
+    $data_query = $wpdb->prepare(
+        "SELECT SQL_CALC_FOUND_ROWS i.id, i.location, i.sent_date, i.menu_item, im.modifier_name,
+                i.gross_price, i.net_price, i.quantity, i.discount, i.tax,
+                i.gross_price - i.discount + i.tax as total
+         $query
+         ORDER BY $order_column $order_dir
+         LIMIT %d OFFSET %d",
+        array_merge($where_args, [$limit, $start])
+    );
+
+    // Execute the data query
     $result = $wpdb->get_results($data_query, ARRAY_A);
+    $total = $wpdb->get_var("SELECT FOUND_ROWS()");
 
-    // Get all data for charts
-    $all_data_query = $query . " ORDER BY i.sent_date";
-    $all_data = $wpdb->get_results($all_data_query, ARRAY_A);
-
-    $chart_data = process_chart_data($all_data);
+    // Fetch chart data
+    $chart_data = get_chart_data($query, $where_args);
 
     $data = array(
         "draw" => intval($_POST['draw']),
@@ -1049,44 +1021,43 @@ function get_ology_toast_beer_data()
     wp_send_json($data);
 }
 
-function process_chart_data($all_data)
+function get_chart_data($base_query, $where_args)
 {
-    $modifier_data = array();
-    $hourly_data = array_fill(7, 17, 0); // Initialize hourly data from 7am to 11pm
+    global $wpdb;
 
-    foreach ($all_data as $row) {
-        // Process modifier data
-        $modifier = $row['modifier_name'];
-        if (!isset($modifier_data[$modifier])) {
-            $modifier_data[$modifier] = 0;
-        }
-        $modifier_data[$modifier]++;
+    // Modifier data query
+    $modifier_query = $wpdb->prepare(
+        "SELECT im.modifier_name, COUNT(*) as count
+         $base_query
+         GROUP BY im.modifier_name
+         ORDER BY count DESC
+         LIMIT 10",
+        $where_args
+    );
 
-        // Process hourly data
-        $hour = intval(date('G', strtotime($row['sent_date'])));
-        if ($hour >= 7 && $hour <= 23) {
-            $hourly_data[$hour]++;
-        }
-    }
+    // Hourly data query
+    $hourly_query = $wpdb->prepare(
+        "SELECT HOUR(i.sent_date) as hour, COUNT(*) as count
+         $base_query
+         GROUP BY HOUR(i.sent_date)
+         ORDER BY hour",
+        $where_args
+    );
 
-    // Sort modifier data and get top 10
-    arsort($modifier_data);
-    $modifier_data = array_slice($modifier_data, 0, 10, true);
+    $modifier_data = $wpdb->get_results($modifier_query, ARRAY_A);
+    $hourly_data = $wpdb->get_results($hourly_query, ARRAY_A);
 
-    // Format hourly data
-    $formatted_hourly_data = [];
-    foreach ($hourly_data as $hour => $count) {
+    // Process hourly data
+    $formatted_hourly_data = array_map(function ($row) {
+        $hour = intval($row['hour']);
         $formatted_hour = $hour <= 12 ? $hour . 'am' : ($hour - 12) . 'pm';
+        if ($hour == 0) $formatted_hour = '12am';
         if ($hour == 12) $formatted_hour = '12pm';
-        if ($hour == 23) $formatted_hour = '11pm';
-        $formatted_hourly_data[] = [
-            'hour' => $formatted_hour,
-            'count' => $count
-        ];
-    }
+        return ['hour' => $formatted_hour, 'count' => intval($row['count'])];
+    }, $hourly_data);
 
     return [
-        'modifierData' => $modifier_data,
+        'modifierData' => array_column($modifier_data, 'count', 'modifier_name'),
         'hourlyData' => $formatted_hourly_data
     ];
 }
