@@ -1,0 +1,215 @@
+ .ology-menu-wrapper {
+    background-color: #2a2a2a;
+    min-height: 100vh;
+}
+
+.ology-menu-container {
+    height: 100%;
+}
+
+.ology-menu-item {
+    background-color: rgb(255, 255, 255);
+    height: calc(.195 * (100vh - 60px));
+    min-height: 150px;
+    border-radius: 4px;
+    margin: 2px;
+    font-family: Roboto, Helvetica, Arial, sans-serif !important;
+}
+
+.ology-menu-item-left {
+    border-radius: 4px 0px 0px 4px;
+}
+
+/* .empty-tap {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 60px;
+} */
+
+.ology-menu-style {
+    position: relative;
+    z-index: 1;
+    height: calc(100%);
+    width: 50%;
+    margin-right: auto;
+    margin-bottom: -2px;
+    border-radius: 4px 0px 0px 0px;
+}
+
+.ology-tap-number-wrapper {
+    position: relative;
+    align-items: center;
+    margin-top: auto;
+    margin-right: auto;
+    background-color: #444444;
+    height: 40px;
+    width: 40px;
+    overflow: visible;
+    border-radius: 3px 3px 3px 3px;
+    z-index: 2;
+    display: none!important;
+}
+
+.ology-tap-number {
+    color: white;
+    font-weight: 600;
+}
+
+.ology-menu-item-title {
+    font-weight: 600;
+    line-height: 1;
+    margin-left: -6%;
+}
+
+.ology-menu-item-excerpt {
+    font-size: 1.4rem;
+    line-height: 1em;
+    margin-left: -6%;
+    font-weight: 300;
+    padding-top: 3px;
+}
+
+.long-name {
+    font-size: 1.4rem;
+}
+
+.short-name {
+    font-size: 1.6rem;
+}
+
+.long-excerpt {
+    font-size: 1.2rem;
+}
+
+.short-excerpt {
+    font-size: 1.4rem;
+}
+
+.hidden {
+    display: none;
+}
+
+.ology-menu-item-container {
+    background-color: #2a2a2a;
+    display: inline;
+    width: 94%;
+    border-radius: 2px;
+    font-size: 1.2rem;
+    color: white;
+    height: 24%;
+    margin: 2px;
+    padding: 6px;
+    font-weight: 500;
+}
+
+.ology-menu-style-footer {
+    bottom: 0px;
+    width: 100%;
+    height: 60px;
+    background-color: #2a2a2a;
+    color: white;
+    font-size: 1.6em;
+    z-index: 2;
+}
+
+.beer-style-box {
+    border-radius: 4px;
+    height: 80%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 900;
+}
+
+.ology-abv {
+    margin-left: -6%;
+    font-size: 1.6rem;
+}
+
+.featured-menu-item {
+    display: flex;
+    overflow: hidden;
+    object-fit: cover;
+    justify-content: center;
+}
+
+img {
+    object-fit: cover;
+}
+
+#content-pro {
+    padding-bottom: 0px !important;
+}
+
+ .menu-row {
+    padding: 0px !important;
+    margin: 0px !important;
+}
+
+#cssid-1911215 {
+    margin-left: -4px !important;
+    margin-right: -4px !important;
+}
+
+#menu-left-temp > li.normal-item-pro.menu-item.menu-item-type-custom.menu-item-object-custom.menu-item-has-children.menu-item-87352 li {
+    font-family: 'Inter', sans-serif;
+}
+
+.tribe-events-calendar-series-archive__container {
+    display: none;
+}
+
+@media only screen and (min-width: 1200px) {
+    .row-cols-lg-5 > .ology-menu-item {
+        width: calc(1 / 5 * (100vw - 36px));
+    }
+    
+    .row-cols-lg-4 > .ology-menu-item {
+        width: calc(1 / 4 * (100vw - 36px));
+    }
+    
+    .row-cols-lg-3 > .ology-menu-item {
+        width: 33%;
+    }
+    
+    .row-cols-lg-2 > .ology-menu-item {
+        width: 49.75%;
+    }
+    
+    .row-cols-lg-1 > .ology-menu-item {
+        width: 100%;
+    }
+}
+
+@media only screen and (max-width: 1400px) {
+
+}
+
+@media only screen and (max-width: 992px) {
+
+}
+
+
+@media only screen and (max-width: 1200px){
+    .body {
+        font-size: 12px;
+    }
+
+    .ology-menu-item-container {
+        font-weight: 500;
+    }
+    .row-cols-lg-5 > .ology-menu-item {
+        width: calc(1 / 4 * (100vw - 36px));
+    }
+    .ology-tap-number-wrapper {
+        width: 20px;
+        height: 20px;
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    .ology-menu-item {
+        width: 100% !important;
+    }
+}
