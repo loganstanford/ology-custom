@@ -1,0 +1,4 @@
+config.py
+/vendor/
+/wordpress/
+__pycache__/
