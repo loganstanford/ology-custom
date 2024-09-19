@@ -105,16 +105,17 @@ add_action('plugins_loaded', 'ology_toast_create_tables');
 
 function ology_toast_admin_page()
 {
-    if (!current_user_can('manage_options')) {
+    // Check if user is admin
+    if (!is_admin()) {
         wp_die(__('You do not have sufficient permissions to access this page.'));
     }
 ?>
-<div class="wrap">
-    <h1>Toast Integration</h1>
-    <p><a href="<?php echo admin_url('admin.php?page=ology-toast-upload'); ?>" class="button button-primary">Upload
-            Data</a></p>
-    <?php echo do_shortcode('[ology_toast_beer_metrics]'); ?>
-</div>
+    <div class="wrap">
+        <h1>Toast Integration</h1>
+        <p><a href="<?php echo admin_url('admin.php?page=ology-toast-upload'); ?>" class="button button-primary">Upload
+                Data</a></p>
+        <?php echo do_shortcode('[ology_toast_beer_metrics]'); ?>
+    </div>
 <?php
 }
 
@@ -129,18 +130,18 @@ function ology_toast_upload_page()
         ology_toast_process_uploaded_files();
     }
 ?>
-<div class="wrap">
-    <h1>Upload Toast CSV Files</h1>
-    <form method="post" enctype="multipart/form-data">
-        <table class="form-table">
-            <tr>
-                <th scope="row"><label for="csv_files">CSV Files</label></th>
-                <td><input type="file" name="csv_files[]" id="csv_files" accept=".csv" multiple></td>
-            </tr>
-        </table>
-        <?php submit_button('Upload and Process CSV Files', 'primary', 'submit_csv'); ?>
-    </form>
-</div>
+    <div class="wrap">
+        <h1>Upload Toast CSV Files</h1>
+        <form method="post" enctype="multipart/form-data">
+            <table class="form-table">
+                <tr>
+                    <th scope="row"><label for="csv_files">CSV Files</label></th>
+                    <td><input type="file" name="csv_files[]" id="csv_files" accept=".csv" multiple></td>
+                </tr>
+            </table>
+            <?php submit_button('Upload and Process CSV Files', 'primary', 'submit_csv'); ?>
+        </form>
+    </div>
 <?php
 }
 
@@ -394,479 +395,479 @@ function ology_toast_beer_metrics_shortcode()
 
     ob_start();
 ?>
-<style>
-/* Custom card style without max-width */
-.ology-card {
-    background-color: #fff;
-    border: 1px solid #ddd;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    margin-bottom: 20px;
-    width: 100%;
-    box-sizing: border-box;
-}
-
-#ology-toast-filters {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-    align-items: flex-start;
-    padding: 20px;
-}
-
-.date-time-group {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-    width: 100%;
-}
-
-.date-group,
-.time-group {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    flex: 1;
-    min-width: 200px;
-}
-
-.date-item,
-.time-item {
-    display: flex;
-    gap: 10px;
-}
-
-.date-item>div,
-.time-item>div {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-}
-
-.other-filter-group {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-    width: 100%;
-}
-
-.other-filter-item {
-    flex: 1;
-    min-width: 200px;
-}
-
-.date-item label,
-.time-item label,
-.other-filter-item label {
-    margin-bottom: 5px;
-    min-width: 100px;
-}
-
-.date-item input,
-.time-item input,
-.other-filter-item select {
-    width: 300px;
-    padding: 8px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    box-sizing: border-box;
-}
-
-/* Style adjustments for Select2 */
-.select2-container {
-    width: 100% !important;
-}
-
-.select2-selection .select2-selection--single {
-    height: 48px;
-    padding: 5px;
-}
-
-.select2-container--default .select2-selection--single .select2-selection__arrow {
-    height: 46px;
-}
-
-#apply_filters {
-    margin-top: 20px;
-    align-self: flex-end;
-}
-
-.ology-toast-filters-button {
-    width: 100%;
-    text-align: right;
-}
-
-/* Responsive adjustments */
-@media (max-width: 768px) {
-
-    .date-item,
-    .time-item,
-    .other-filter-item {
-        flex: 1 1 100%;
-    }
-}
-
-/* Flexbox for charts - 50% each */
-.ology-toast-charts-container {
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-}
-
-.ology-toast-chart-wrapper {
-    flex: 0 1 calc(50% - 10px);
-    padding: 10px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    height: 400px;
-    /* Set a fixed height for consistency */
-}
-
-.ology-chart-title {
-    font-size: 1.2em;
-    margin-bottom: 10px;
-    font-weight: bold;
-    text-align: center;
-}
-
-/* Add this new style for the canvas */
-.ology-toast-chart-wrapper canvas {
-    width: 100% !important;
-    height: auto !important;
-    max-height: 350px;
-    /* Adjust this value as needed */
-}
-
-/* Full width table */
-#ology-toast-table-container {
-    width: 100%;
-}
-
-/* Additional table styling */
-#ology-toast-beer-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 10px;
-}
-
-#ology-toast-beer-table th,
-#ology-toast-beer-table td {
-    border: 1px solid #ddd;
-    padding: 10px;
-    text-align: left;
-}
-
-#ology-toast-beer-table th {
-    background-color: #f4f4f4;
-}
-
-
-#ology-toast-beer-table_length {
-    margin-bottom: 10px;
-}
-
-#ology-toast-beer-table_length>label>select {
-    margin-left: 10px;
-    min-width: 60px;
-}
-</style>
-
-<div id="ology-toast-filters" class="ology-card">
-    <div class="date-group">
-        <div class="date-item">
-            <label for="start_date">Start Date:</label>
-            <input type="text" id="start_date" name="start_date">
-        </div>
-        <div class="date-item">
-            <label for="end_date">End Date:</label>
-            <input type="text" id="end_date" name="end_date">
-        </div>
-    </div>
-
-    <div class="time-group">
-        <div class="time-item">
-            <label for="start_time">Start Time:</label>
-            <input type="text" id="start_time" name="start_time">
-        </div>
-        <div class="time-item">
-            <label for="end_time">End Time:</label>
-            <input type="text" id="end_time" name="end_time">
-        </div>
-    </div>
-
-    <div class="other-filter-group">
-        <div class="other-filter-item">
-            <label for="location">Location:</label>
-            <select id="location" name="location" class="select2" multiple>
-                <option value="">All Locations</option>
-                <?php foreach ($locations as $location): ?>
-                <option value="<?php echo esc_attr($location); ?>"><?php echo esc_html($location); ?></option>
-                <?php endforeach; ?>
-            </select>
-        </div>
-        <div class="other-filter-item">
-            <label for="menu_item">Menu Item:</label>
-            <select id="menu_item" name="menu_item" class="select2" multiple>
-                <option value="">All Menu Items</option>
-                <?php foreach ($menu_items as $item): ?>
-                <option value="<?php echo esc_attr($item); ?>"><?php echo esc_html($item); ?></option>
-                <?php endforeach; ?>
-            </select>
-        </div>
-        <div class="other-filter-item">
-            <label for="modifier">Modifier:</label>
-            <select id="modifier" name="modifier" class="select2" multiple>
-                <option value="">All Modifiers</option>
-                <?php foreach ($modifiers as $modifier): ?>
-                <option value="<?php echo esc_attr($modifier); ?>"><?php echo esc_html($modifier); ?></option>
-                <?php endforeach; ?>
-            </select>
-        </div>
-    </div>
-    <div class="ology-toast-filters-button">
-        <a href="#" id="apply_filters" class="button button-primary">Apply Filters</a>
-    </div>
-</div>
-
-<div class="ology-toast-charts-container">
-    <div class="ology-toast-chart-wrapper ology-card">
-        <canvas id="modifierPieChart"></canvas>
-    </div>
-    <div class="ology-toast-chart-wrapper ology-card">
-
-        <canvas id="hourlyBarChart"></canvas>
-    </div>
-</div>
-
-<div id="ology-toast-table-container" class="ology-card">
-    <table id="ology-toast-beer-table">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Location</th>
-                <th>Sent Date</th>
-                <th>Menu Item</th>
-                <th>Modifier</th>
-                <th>Gross Price</th>
-                <th>Net Price</th>
-                <th>Quantity</th>
-                <th>Discount</th>
-                <th>Tax</th>
-                <th>Total</th>
-            </tr>
-        </thead>
-    </table>
-</div>
-
-<script>
-jQuery(document).ready(function($) {
-
-    // Initialize Select2 for dropdown filters
-    $('#location, #menu_item, #modifier').select2({
-        width: '100%',
-        allowClear: true
-    });
-
-    $('#location').select2({
-        placeholder: 'Select Taproom',
-        allowClear: true
-    });
-
-    $('#menu_item').select2({
-        placeholder: 'Select Beer',
-        allowClear: true
-    });
-
-    $('#modifier').select2({
-        placeholder: 'Select Size',
-        allowClear: true
-    });
-
-    // Initialize datepicker for date inputs
-    $('#start_date, #end_date').datepicker({
-        dateFormat: 'yy-mm-dd'
-    });
-
-    // Initialize timepicker for time inputs
-    $('#start_time, #end_time').timepicker({
-        timeFormat: 'HH:mm:ss'
-    });
-
-    let modifierChart, hourlyChart;
-
-    function createCharts(modifierData, hourlyData) {
-        const modifierCtx = document.getElementById('modifierPieChart').getContext('2d');
-        const hourlyCtx = document.getElementById('hourlyBarChart').getContext('2d');
-
-        // Prepare data for modifier pie chart
-        const modifierLabels = Object.keys(modifierData);
-        const modifierCounts = Object.values(modifierData);
-
-        if (modifierChart) {
-            modifierChart.data.labels = modifierLabels;
-            modifierChart.data.datasets[0].data = modifierCounts;
-            modifierChart.update();
-        } else {
-            modifierChart = new Chart(modifierCtx, {
-                type: 'pie',
-                data: {
-                    labels: modifierLabels,
-                    datasets: [{
-                        data: modifierCounts,
-                        backgroundColor: [
-                            '#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0', '#9966FF',
-                            '#FF9F40', '#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0'
-                        ]
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        legend: {
-                            position: 'right',
-                        },
-                        title: {
-                            display: true,
-                            text: 'Beer Sales by Size'
-                        }
-                    }
-                }
-            });
+    <style>
+        /* Custom card style without max-width */
+        .ology-card {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+            width: 100%;
+            box-sizing: border-box;
         }
 
-        if (hourlyChart) {
-            hourlyChart.data.labels = hourlyData.map(item => item.hour);
-            hourlyChart.data.datasets[0].data = hourlyData.map(item => item.count);
-            hourlyChart.update();
-        } else {
-            hourlyChart = new Chart(hourlyCtx, {
-                type: 'bar',
-                data: {
-                    labels: hourlyData.map(item => item.hour),
-                    datasets: [{
-                        label: 'Orders per Hour',
-                        data: hourlyData.map(item => item.count),
-                        backgroundColor: '#36A2EB'
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        legend: {
-                            display: false
+        #ology-toast-filters {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            align-items: flex-start;
+            padding: 20px;
+        }
+
+        .date-time-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            width: 100%;
+        }
+
+        .date-group,
+        .time-group {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .date-item,
+        .time-item {
+            display: flex;
+            gap: 10px;
+        }
+
+        .date-item>div,
+        .time-item>div {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .other-filter-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            width: 100%;
+        }
+
+        .other-filter-item {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .date-item label,
+        .time-item label,
+        .other-filter-item label {
+            margin-bottom: 5px;
+            min-width: 100px;
+        }
+
+        .date-item input,
+        .time-item input,
+        .other-filter-item select {
+            width: 300px;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        /* Style adjustments for Select2 */
+        .select2-container {
+            width: 100% !important;
+        }
+
+        .select2-selection .select2-selection--single {
+            height: 48px;
+            padding: 5px;
+        }
+
+        .select2-container--default .select2-selection--single .select2-selection__arrow {
+            height: 46px;
+        }
+
+        #apply_filters {
+            margin-top: 20px;
+            align-self: flex-end;
+        }
+
+        .ology-toast-filters-button {
+            width: 100%;
+            text-align: right;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+
+            .date-item,
+            .time-item,
+            .other-filter-item {
+                flex: 1 1 100%;
+            }
+        }
+
+        /* Flexbox for charts - 50% each */
+        .ology-toast-charts-container {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+        }
+
+        .ology-toast-chart-wrapper {
+            flex: 0 1 calc(50% - 10px);
+            padding: 10px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            height: 400px;
+            /* Set a fixed height for consistency */
+        }
+
+        .ology-chart-title {
+            font-size: 1.2em;
+            margin-bottom: 10px;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        /* Add this new style for the canvas */
+        .ology-toast-chart-wrapper canvas {
+            width: 100% !important;
+            height: auto !important;
+            max-height: 350px;
+            /* Adjust this value as needed */
+        }
+
+        /* Full width table */
+        #ology-toast-table-container {
+            width: 100%;
+        }
+
+        /* Additional table styling */
+        #ology-toast-beer-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        #ology-toast-beer-table th,
+        #ology-toast-beer-table td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+
+        #ology-toast-beer-table th {
+            background-color: #f4f4f4;
+        }
+
+
+        #ology-toast-beer-table_length {
+            margin-bottom: 10px;
+        }
+
+        #ology-toast-beer-table_length>label>select {
+            margin-left: 10px;
+            min-width: 60px;
+        }
+    </style>
+
+    <div id="ology-toast-filters" class="ology-card">
+        <div class="date-group">
+            <div class="date-item">
+                <label for="start_date">Start Date:</label>
+                <input type="text" id="start_date" name="start_date">
+            </div>
+            <div class="date-item">
+                <label for="end_date">End Date:</label>
+                <input type="text" id="end_date" name="end_date">
+            </div>
+        </div>
+
+        <div class="time-group">
+            <div class="time-item">
+                <label for="start_time">Start Time:</label>
+                <input type="text" id="start_time" name="start_time">
+            </div>
+            <div class="time-item">
+                <label for="end_time">End Time:</label>
+                <input type="text" id="end_time" name="end_time">
+            </div>
+        </div>
+
+        <div class="other-filter-group">
+            <div class="other-filter-item">
+                <label for="location">Location:</label>
+                <select id="location" name="location" class="select2" multiple>
+                    <option value="">All Locations</option>
+                    <?php foreach ($locations as $location): ?>
+                        <option value="<?php echo esc_attr($location); ?>"><?php echo esc_html($location); ?></option>
+                    <?php endforeach; ?>
+                </select>
+            </div>
+            <div class="other-filter-item">
+                <label for="menu_item">Menu Item:</label>
+                <select id="menu_item" name="menu_item" class="select2" multiple>
+                    <option value="">All Menu Items</option>
+                    <?php foreach ($menu_items as $item): ?>
+                        <option value="<?php echo esc_attr($item); ?>"><?php echo esc_html($item); ?></option>
+                    <?php endforeach; ?>
+                </select>
+            </div>
+            <div class="other-filter-item">
+                <label for="modifier">Modifier:</label>
+                <select id="modifier" name="modifier" class="select2" multiple>
+                    <option value="">All Modifiers</option>
+                    <?php foreach ($modifiers as $modifier): ?>
+                        <option value="<?php echo esc_attr($modifier); ?>"><?php echo esc_html($modifier); ?></option>
+                    <?php endforeach; ?>
+                </select>
+            </div>
+        </div>
+        <div class="ology-toast-filters-button">
+            <a href="#" id="apply_filters" class="button button-primary">Apply Filters</a>
+        </div>
+    </div>
+
+    <div class="ology-toast-charts-container">
+        <div class="ology-toast-chart-wrapper ology-card">
+            <canvas id="modifierPieChart"></canvas>
+        </div>
+        <div class="ology-toast-chart-wrapper ology-card">
+
+            <canvas id="hourlyBarChart"></canvas>
+        </div>
+    </div>
+
+    <div id="ology-toast-table-container" class="ology-card">
+        <table id="ology-toast-beer-table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Location</th>
+                    <th>Sent Date</th>
+                    <th>Menu Item</th>
+                    <th>Modifier</th>
+                    <th>Gross Price</th>
+                    <th>Net Price</th>
+                    <th>Quantity</th>
+                    <th>Discount</th>
+                    <th>Tax</th>
+                    <th>Total</th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+
+    <script>
+        jQuery(document).ready(function($) {
+
+            // Initialize Select2 for dropdown filters
+            $('#location, #menu_item, #modifier').select2({
+                width: '100%',
+                allowClear: true
+            });
+
+            $('#location').select2({
+                placeholder: 'Select Taproom',
+                allowClear: true
+            });
+
+            $('#menu_item').select2({
+                placeholder: 'Select Beer',
+                allowClear: true
+            });
+
+            $('#modifier').select2({
+                placeholder: 'Select Size',
+                allowClear: true
+            });
+
+            // Initialize datepicker for date inputs
+            $('#start_date, #end_date').datepicker({
+                dateFormat: 'yy-mm-dd'
+            });
+
+            // Initialize timepicker for time inputs
+            $('#start_time, #end_time').timepicker({
+                timeFormat: 'HH:mm:ss'
+            });
+
+            let modifierChart, hourlyChart;
+
+            function createCharts(modifierData, hourlyData) {
+                const modifierCtx = document.getElementById('modifierPieChart').getContext('2d');
+                const hourlyCtx = document.getElementById('hourlyBarChart').getContext('2d');
+
+                // Prepare data for modifier pie chart
+                const modifierLabels = Object.keys(modifierData);
+                const modifierCounts = Object.values(modifierData);
+
+                if (modifierChart) {
+                    modifierChart.data.labels = modifierLabels;
+                    modifierChart.data.datasets[0].data = modifierCounts;
+                    modifierChart.update();
+                } else {
+                    modifierChart = new Chart(modifierCtx, {
+                        type: 'pie',
+                        data: {
+                            labels: modifierLabels,
+                            datasets: [{
+                                data: modifierCounts,
+                                backgroundColor: [
+                                    '#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0', '#9966FF',
+                                    '#FF9F40', '#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0'
+                                ]
+                            }]
                         },
-                        title: {
-                            display: true,
-                            text: 'Beer Sales by Hour'
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            plugins: {
+                                legend: {
+                                    position: 'right',
+                                },
+                                title: {
+                                    display: true,
+                                    text: 'Beer Sales by Size'
+                                }
+                            }
                         }
+                    });
+                }
+
+                if (hourlyChart) {
+                    hourlyChart.data.labels = hourlyData.map(item => item.hour);
+                    hourlyChart.data.datasets[0].data = hourlyData.map(item => item.count);
+                    hourlyChart.update();
+                } else {
+                    hourlyChart = new Chart(hourlyCtx, {
+                        type: 'bar',
+                        data: {
+                            labels: hourlyData.map(item => item.hour),
+                            datasets: [{
+                                label: 'Orders per Hour',
+                                data: hourlyData.map(item => item.count),
+                                backgroundColor: '#36A2EB'
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            plugins: {
+                                legend: {
+                                    display: false
+                                },
+                                title: {
+                                    display: true,
+                                    text: 'Beer Sales by Hour'
+                                }
+                            },
+                            scales: {
+                                y: {
+                                    beginAtZero: true,
+                                    title: {
+                                        display: true,
+                                        text: 'Number of Orders'
+                                    }
+                                },
+                                x: {
+                                    title: {
+                                        display: true,
+                                        text: 'Hour of Day'
+                                    }
+                                }
+                            }
+                        }
+                    });
+                }
+            }
+
+            function formatCurrency(data, type, row) {
+                if (type === 'display') {
+                    return '$' + parseFloat(data).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
+                }
+                return data;
+            }
+
+            var table = $('#ology-toast-beer-table').DataTable({
+                processing: true,
+                serverSide: true,
+                ajax: {
+                    url: '<?php echo admin_url('admin-ajax.php'); ?>',
+                    type: 'POST',
+                    data: function(d) {
+                        d.action = 'get_ology_toast_beer_data';
+                        d.start_date = $('#start_date').val();
+                        d.end_date = $('#end_date').val();
+                        d.start_time = $('#start_time').val();
+                        d.end_time = $('#end_time').val();
+                        d.location = $('#location').val();
+                        d.menu_item = $('#menu_item').val();
+                        d.modifier = $('#modifier').val();
                     },
-                    scales: {
-                        y: {
-                            beginAtZero: true,
-                            title: {
-                                display: true,
-                                text: 'Number of Orders'
-                            }
-                        },
-                        x: {
-                            title: {
-                                display: true,
-                                text: 'Hour of Day'
-                            }
-                        }
+                    dataSrc: function(json) {
+                        createCharts(json.chartData.modifierData, json.chartData.hourlyData);
+                        return json.data;
                     }
-                }
+                },
+                columns: [{
+                        data: 'id'
+                    },
+                    {
+                        data: 'location'
+                    },
+                    {
+                        data: 'sent_date'
+                    },
+                    {
+                        data: 'menu_item'
+                    },
+                    {
+                        data: 'modifier_name'
+                    },
+                    {
+                        data: 'gross_price',
+                        render: formatCurrency
+                    },
+                    {
+                        data: 'net_price',
+                        render: formatCurrency
+                    },
+                    {
+                        data: 'quantity'
+                    },
+                    {
+                        data: 'discount',
+                        render: formatCurrency
+                    },
+                    {
+                        data: 'tax',
+                        render: formatCurrency
+                    },
+                    {
+                        data: 'total',
+                        render: formatCurrency
+                    }
+                ],
+                order: [
+                    [2, 'desc'] // Sort by sent_date descending by default
+                ],
+                pageLength: 25,
+                searching: false,
+                autoWidth: false
+
             });
-        }
-    }
 
-    function formatCurrency(data, type, row) {
-        if (type === 'display') {
-            return '$' + parseFloat(data).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
-        }
-        return data;
-    }
-
-    var table = $('#ology-toast-beer-table').DataTable({
-        processing: true,
-        serverSide: true,
-        ajax: {
-            url: '<?php echo admin_url('admin-ajax.php'); ?>',
-            type: 'POST',
-            data: function(d) {
-                d.action = 'get_ology_toast_beer_data';
-                d.start_date = $('#start_date').val();
-                d.end_date = $('#end_date').val();
-                d.start_time = $('#start_time').val();
-                d.end_time = $('#end_time').val();
-                d.location = $('#location').val();
-                d.menu_item = $('#menu_item').val();
-                d.modifier = $('#modifier').val();
-            },
-            dataSrc: function(json) {
-                createCharts(json.chartData.modifierData, json.chartData.hourlyData);
-                return json.data;
-            }
-        },
-        columns: [{
-                data: 'id'
-            },
-            {
-                data: 'location'
-            },
-            {
-                data: 'sent_date'
-            },
-            {
-                data: 'menu_item'
-            },
-            {
-                data: 'modifier_name'
-            },
-            {
-                data: 'gross_price',
-                render: formatCurrency
-            },
-            {
-                data: 'net_price',
-                render: formatCurrency
-            },
-            {
-                data: 'quantity'
-            },
-            {
-                data: 'discount',
-                render: formatCurrency
-            },
-            {
-                data: 'tax',
-                render: formatCurrency
-            },
-            {
-                data: 'total',
-                render: formatCurrency
-            }
-        ],
-        order: [
-            [2, 'desc'] // Sort by sent_date descending by default
-        ],
-        pageLength: 25,
-        searching: false,
-        autoWidth: false
-
-    });
-
-    // Update the filter application code
-    $('#apply_filters').on('click', function(e) {
-        e.preventDefault();
-        table.ajax.reload();
-    });
-});
-</script>
+            // Update the filter application code
+            $('#apply_filters').on('click', function(e) {
+                e.preventDefault();
+                table.ajax.reload();
+            });
+        });
+    </script>
 <?php
     return ob_get_clean();
 }
