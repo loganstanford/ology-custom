@@ -725,7 +725,7 @@ function ology_updateUntappdStyleTerms($item, $post_id, $debug = false)
 				$parent_style = "IPA";
 				break;
 
-			case str_contains($parent_style, 'Polotmavy'):
+			case str_contains($parent_style, 'Polotmavé'):
 				$parent_style = "Lager";
 				break;
 
