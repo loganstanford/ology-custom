@@ -716,6 +716,10 @@ function ology_updateUntappdStyleTerms($item, $post_id, $debug = false)
 				$parent_style = "Lager";
 				break;
 
+			case str_contains($parent_style, 'Festbier'):
+				$parent_style = "Lager";
+				break;
+
 				// If Pale Ale, import as IPA
 			case str_contains($parent_style, 'Pale Ale'):
 				$parent_style = "IPA";
