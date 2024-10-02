@@ -416,14 +416,13 @@ function ology_toast_beer_metrics_shortcode()
     wp_enqueue_style('jquery-ui-timepicker', 'https://cdnjs.cloudflare.com/ajax/libs/jquery-ui-timepicker-addon/1.6.3/jquery-ui-timepicker-addon.min.css');
     wp_enqueue_style('datatables', 'https://cdn.datatables.net/1.10.24/css/jquery.dataTables.min.css');
     wp_enqueue_style('select2', 'https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css');
-    wp_enqueue_style('datatables-buttons', 'https://cdn.datatables.net/buttons/1.7.1/css/buttons.dataTables.min.css');
+    wp_enqueue_style('datatables', 'https://cdn.datatables.net/v/bs5/jszip-3.10.1/dt-2.1.7/b-3.1.2/b-html5-3.1.2/datatables.min.css');
 
     wp_enqueue_script('jquery-ui', 'https://code.jquery.com/ui/1.12.1/jquery-ui.min.js', array('jquery'), null, true);
     wp_enqueue_script('jquery-ui-timepicker', 'https://cdnjs.cloudflare.com/ajax/libs/jquery-ui-timepicker-addon/1.6.3/jquery-ui-timepicker-addon.min.js', array('jquery', 'jquery-ui'), null, true);
-    wp_enqueue_script('datatables', 'https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js', array('jquery'), null, true);
+    wp_enqueue_script('datatables', 'https://cdn.datatables.net/v/bs5/jszip-3.10.1/dt-2.1.7/b-3.1.2/b-html5-3.1.2/datatables.min.js', array('jquery'), null, true);
     wp_enqueue_script('select2', 'https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js', array('jquery'), null, true);
     wp_enqueue_script('chartjs', 'https://cdn.jsdelivr.net/npm/chart.js', array(), null, true);
-    wp_enqueue_script('datatables-buttons', 'https://cdn.datatables.net/buttons/1.7.1/js/dataTables.buttons.min.js', array('datatables'), null, true);
 
     global $wpdb;
     $item_details_table = $wpdb->prefix . 'ologytoast_item_details';
@@ -912,9 +911,13 @@ function ology_toast_beer_metrics_shortcode()
                 pageLength: 25,
                 searching: false,
                 autoWidth: false,
-                buttons: ['copy', 'excel', 'pdf'],
-                dom: 'Bfrtip'
-
+                layout: {
+                    topStart: {
+                        buttons: [
+                            'copy', 'excel', 'pdf'
+                        ]
+                    }
+                }
             });
 
             // Update the filter application code
