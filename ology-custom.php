@@ -1394,24 +1394,12 @@ function get_menus_for_location($data)
 			// Get current timestamp for comparison
 			$current_time = current_time('timestamp');
 			
-			// Get regular images from file list
-			$images = get_post_meta(get_the_ID(), 'ology_file_list', true);
-			$imageArray = array();
-
-			// Convert images object to an array of objects to preserve order
-			if (is_array($images)) {
-				foreach ($images as $id => $url) {
-					// Fetch alt text for the image
-					$alt_text = get_post_meta($id, '_wp_attachment_image_alt', true);
-
-					// Include alt text in the image array
-					$imageArray[] = array('id' => $id, 'url' => $url, 'alt' => $alt_text);
-				}
-			}
+			// Initialize arrays for different image types
+			$scheduledImages = array();
+			$regularImages = array();
 			
-			// Get scheduled images
+			// Process scheduled images first
 			$scheduled_images = get_post_meta(get_the_ID(), 'ology_scheduled_images', true);
-			
 			if (is_array($scheduled_images)) {
 				foreach ($scheduled_images as $scheduled_image) {
 					// Check if the image should be displayed based on dates
@@ -1421,7 +1409,7 @@ function get_menus_for_location($data)
 					if ($current_time >= $start_date && $current_time <= $end_date) {
 						// Image is within the scheduled period, add it to the array
 						$image_id = ology_attachment_url_to_postid($scheduled_image['image']);
-						$imageArray[] = array(
+						$scheduledImages[] = array(
 							'id' => $image_id,
 							'url' => $scheduled_image['image'],
 							'alt' => $scheduled_image['title'],
@@ -1432,6 +1420,21 @@ function get_menus_for_location($data)
 					}
 				}
 			}
+			
+			// Process regular images
+			$images = get_post_meta(get_the_ID(), 'ology_file_list', true);
+			if (is_array($images)) {
+				foreach ($images as $id => $url) {
+					// Fetch alt text for the image
+					$alt_text = get_post_meta($id, '_wp_attachment_image_alt', true);
+
+					// Include alt text in the image array
+					$regularImages[] = array('id' => $id, 'url' => $url, 'alt' => $alt_text);
+				}
+			}
+			
+			// Combine images in the desired order: scheduled first, then regular
+			$imageArray = array_merge($scheduledImages, $regularImages);
 
 			// Add menu details to the response
 			$menus[] = array(
