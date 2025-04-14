@@ -68,16 +68,16 @@ function ology_cocktail_post_type_init()
 		'parent_item_colon' => __('Parent Cocktails:', 'default'),
 		'not_found' => __('No Cocktails found.', 'default'),
 		'not_found_in_trash' => __('No Cocktails found in Trash.', 'default'),
-		'featured_image' => _x('Cocktail featured Image', 'Overrides the “Featured Image” phrase for this post type. Added in 4.3', 'default'),
-		'set_featured_image' => _x('Set featured image', 'Overrides the “Set featured image” phrase for this post type. Added in 4.3', 'default'),
-		'remove_featured_image' => _x('Remove featured image', 'Overrides the “Remove featured image” phrase for this post type. Added in 4.3', 'default'),
-		'use_featured_image' => _x('Use as featured image', 'Overrides the “Use as featured image” phrase for this post type. Added in 4.3', 'default'),
-		'archives' => _x('Cocktail archives', 'The post type archive label used in nav menus. Default “Post Archives”. Added in 4.4', 'default'),
-		'insert_into_item' => _x('Insert into Cocktail', 'Overrides the “Insert into post”/”Insert into page” phrase (used when inserting media into a post). Added in 4.4', 'default'),
-		'uploaded_to_this_item' => _x('Uploaded to this Cocktail', 'Overrides the “Uploaded to this post”/”Uploaded to this page” phrase (used when viewing media attached to a post). Added in 4.4', 'default'),
-		'filter_items_list' => _x('Filter Cocktails list', 'Screen reader text for the filter links heading on the post type listing screen. Default “Filter posts list”/”Filter pages list”. Added in 4.4', 'default'),
-		'items_list_navigation' => _x('Cocktails list navigation', 'Screen reader text for the pagination heading on the post type listing screen. Default “Posts list navigation”/”Pages list navigation”. Added in 4.4', 'default'),
-		'items_list' => _x('Cocktails list', 'Screen reader text for the items list heading on the post type listing screen. Default “Posts list”/”Pages list”. Added in 4.4', 'default'),
+		'featured_image' => _x('Cocktail featured Image', 'Overrides the "Featured Image" phrase for this post type. Added in 4.3', 'default'),
+		'set_featured_image' => _x('Set featured image', 'Overrides the "Set featured image" phrase for this post type. Added in 4.3', 'default'),
+		'remove_featured_image' => _x('Remove featured image', 'Overrides the "Remove featured image" phrase for this post type. Added in 4.3', 'default'),
+		'use_featured_image' => _x('Use as featured image', 'Overrides the "Use as featured image" phrase for this post type. Added in 4.3', 'default'),
+		'archives' => _x('Cocktail archives', 'The post type archive label used in nav menus. Default "Post Archives". Added in 4.4', 'default'),
+		'insert_into_item' => _x('Insert into Cocktail', 'Overrides the "Insert into post"/"Insert into page" phrase (used when inserting media into a post). Added in 4.4', 'default'),
+		'uploaded_to_this_item' => _x('Uploaded to this Cocktail', 'Overrides the "Uploaded to this post"/"Uploaded to this page" phrase (used when viewing media attached to a post). Added in 4.4', 'default'),
+		'filter_items_list' => _x('Filter Cocktails list', 'Screen reader text for the filter links heading on the post type listing screen. Default "Filter posts list"/Filter pages list". Added in 4.4', 'default'),
+		'items_list_navigation' => _x('Cocktails list navigation', 'Screen reader text for the pagination heading on the post type listing screen. Default "Posts list navigation"/Pages list navigation". Added in 4.4', 'default'),
+		'items_list' => _x('Cocktails list', 'Screen reader text for the items list heading on the post type listing screen. Default "Posts list"/Pages list". Added in 4.4', 'default'),
 	);
 
 	$args = array(
@@ -142,16 +142,16 @@ function ology_coffee_post_type_init()
 		'parent_item_colon' => __('Parent Coffee:', 'default'),
 		'not_found' => __('No Coffee found.', 'default'),
 		'not_found_in_trash' => __('No Coffee found in Trash.', 'default'),
-		'featured_image' => _x('Coffee featured Image', 'Overrides the “Featured Image” phrase for this post type. Added in 4.3', 'default'),
-		'set_featured_image' => _x('Set featured image', 'Overrides the “Set featured image” phrase for this post type. Added in 4.3', 'default'),
-		'remove_featured_image' => _x('Remove featured image', 'Overrides the “Remove featured image” phrase for this post type. Added in 4.3', 'default'),
-		'use_featured_image' => _x('Use as featured image', 'Overrides the “Use as featured image” phrase for this post type. Added in 4.3', 'default'),
-		'archives' => _x('Coffee archives', 'The post type archive label used in nav menus. Default “Post Archives”. Added in 4.4', 'default'),
-		'insert_into_item' => _x('Insert into Coffee', 'Overrides the “Insert into post”/”Insert into page” phrase (used when inserting media into a post). Added in 4.4', 'default'),
-		'uploaded_to_this_item' => _x('Uploaded to this Coffee', 'Overrides the “Uploaded to this post”/”Uploaded to this page” phrase (used when viewing media attached to a post). Added in 4.4', 'default'),
-		'filter_items_list' => _x('Filter Coffee list', 'Screen reader text for the filter links heading on the post type listing screen. Default “Filter posts list”/”Filter pages list”. Added in 4.4', 'default'),
-		'items_list_navigation' => _x('Coffee list navigation', 'Screen reader text for the pagination heading on the post type listing screen. Default “Posts list navigation”/”Pages list navigation”. Added in 4.4', 'default'),
-		'items_list' => _x('Coffee list', 'Screen reader text for the items list heading on the post type listing screen. Default “Posts list”/”Pages list”. Added in 4.4', 'default'),
+		'featured_image' => _x('Coffee featured Image', 'Overrides the "Featured Image" phrase for this post type. Added in 4.3', 'default'),
+		'set_featured_image' => _x('Set featured image', 'Overrides the "Set featured image" phrase for this post type. Added in 4.3', 'default'),
+		'remove_featured_image' => _x('Remove featured image', 'Overrides the "Remove featured image" phrase for this post type. Added in 4.3', 'default'),
+		'use_featured_image' => _x('Use as featured image', 'Overrides the "Use as featured image" phrase for this post type. Added in 4.3', 'default'),
+		'archives' => _x('Coffee archives', 'The post type archive label used in nav menus. Default "Post Archives". Added in 4.4', 'default'),
+		'insert_into_item' => _x('Insert into Coffee', 'Overrides the "Insert into post"/"Insert into page" phrase (used when inserting media into a post). Added in 4.4', 'default'),
+		'uploaded_to_this_item' => _x('Uploaded to this Coffee', 'Overrides the "Uploaded to this post"/"Uploaded to this page" phrase (used when viewing media attached to a post). Added in 4.4', 'default'),
+		'filter_items_list' => _x('Filter Coffee list', 'Screen reader text for the filter links heading on the post type listing screen. Default "Filter posts list"/Filter pages list". Added in 4.4', 'default'),
+		'items_list_navigation' => _x('Coffee list navigation', 'Screen reader text for the pagination heading on the post type listing screen. Default "Posts list navigation"/Pages list navigation". Added in 4.4', 'default'),
+		'items_list' => _x('Coffee list', 'Screen reader text for the items list heading on the post type listing screen. Default "Posts list"/Pages list". Added in 4.4', 'default'),
 	);
 
 	$args = array(
@@ -193,16 +193,16 @@ function ology_food_post_type_init()
 		'parent_item_colon' => __('Parent Food:', 'default'),
 		'not_found' => __('No Food found.', 'default'),
 		'not_found_in_trash' => __('No Food found in Trash.', 'default'),
-		'featured_image' => _x('Food featured Image', 'Overrides the “Featured Image” phrase for this post type. Added in 4.3', 'default'),
-		'set_featured_image' => _x('Set featured image', 'Overrides the “Set featured image” phrase for this post type. Added in 4.3', 'default'),
-		'remove_featured_image' => _x('Remove featured image', 'Overrides the “Remove featured image” phrase for this post type. Added in 4.3', 'default'),
-		'use_featured_image' => _x('Use as featured image', 'Overrides the “Use as featured image” phrase for this post type. Added in 4.3', 'default'),
-		'archives' => _x('Food archives', 'The post type archive label used in nav menus. Default “Post Archives”. Added in 4.4', 'default'),
-		'insert_into_item' => _x('Insert into Food', 'Overrides the “Insert into post”/”Insert into page” phrase (used when inserting media into a post). Added in 4.4', 'default'),
-		'uploaded_to_this_item' => _x('Uploaded to this Food', 'Overrides the “Uploaded to this post”/”Uploaded to this page” phrase (used when viewing media attached to a post). Added in 4.4', 'default'),
-		'filter_items_list' => _x('Filter Food list', 'Screen reader text for the filter links heading on the post type listing screen. Default “Filter posts list”/”Filter pages list”. Added in 4.4', 'default'),
-		'items_list_navigation' => _x('Food list navigation', 'Screen reader text for the pagination heading on the post type listing screen. Default “Posts list navigation”/”Pages list navigation”. Added in 4.4', 'default'),
-		'items_list' => _x('Food list', 'Screen reader text for the items list heading on the post type listing screen. Default “Posts list”/”Pages list”. Added in 4.4', 'default'),
+		'featured_image' => _x('Food featured Image', 'Overrides the "Featured Image" phrase for this post type. Added in 4.3', 'default'),
+		'set_featured_image' => _x('Set featured image', 'Overrides the "Set featured image" phrase for this post type. Added in 4.3', 'default'),
+		'remove_featured_image' => _x('Remove featured image', 'Overrides the "Remove featured image" phrase for this post type. Added in 4.3', 'default'),
+		'use_featured_image' => _x('Use as featured image', 'Overrides the "Use as featured image" phrase for this post type. Added in 4.3', 'default'),
+		'archives' => _x('Food archives', 'The post type archive label used in nav menus. Default "Post Archives". Added in 4.4', 'default'),
+		'insert_into_item' => _x('Insert into Food', 'Overrides the "Insert into post"/"Insert into page" phrase (used when inserting media into a post). Added in 4.4', 'default'),
+		'uploaded_to_this_item' => _x('Uploaded to this Food', 'Overrides the "Uploaded to this post"/"Uploaded to this page" phrase (used when viewing media attached to a post). Added in 4.4', 'default'),
+		'filter_items_list' => _x('Filter Food list', 'Screen reader text for the filter links heading on the post type listing screen. Default "Filter posts list"/Filter pages list". Added in 4.4', 'default'),
+		'items_list_navigation' => _x('Food list navigation', 'Screen reader text for the pagination heading on the post type listing screen. Default "Posts list navigation"/Pages list navigation". Added in 4.4', 'default'),
+		'items_list' => _x('Food list', 'Screen reader text for the items list heading on the post type listing screen. Default "Posts list"/Pages list". Added in 4.4', 'default'),
 	);
 
 	$args = array(
@@ -269,16 +269,16 @@ function ology_spirit_post_type_init()
 		'parent_item_colon' => __('Parent Spirits:', 'default'),
 		'not_found' => __('No Spirits found.', 'default'),
 		'not_found_in_trash' => __('No Spirits found in Trash.', 'default'),
-		'featured_image' => _x('Spirit featured Image', 'Overrides the “Featured Image” phrase for this post type. Added in 4.3', 'default'),
-		'set_featured_image' => _x('Set featured image', 'Overrides the “Set featured image” phrase for this post type. Added in 4.3', 'default'),
-		'remove_featured_image' => _x('Remove featured image', 'Overrides the “Remove featured image” phrase for this post type. Added in 4.3', 'default'),
-		'use_featured_image' => _x('Use as featured image', 'Overrides the “Use as featured image” phrase for this post type. Added in 4.3', 'default'),
-		'archives' => _x('Spirit archives', 'The post type archive label used in nav menus. Default “Post Archives”. Added in 4.4', 'default'),
-		'insert_into_item' => _x('Insert into Spirit', 'Overrides the “Insert into post”/”Insert into page” phrase (used when inserting media into a post). Added in 4.4', 'default'),
-		'uploaded_to_this_item' => _x('Uploaded to this Spirit', 'Overrides the “Uploaded to this post”/”Uploaded to this page” phrase (used when viewing media attached to a post). Added in 4.4', 'default'),
-		'filter_items_list' => _x('Filter Spirits list', 'Screen reader text for the filter links heading on the post type listing screen. Default “Filter posts list”/”Filter pages list”. Added in 4.4', 'default'),
-		'items_list_navigation' => _x('Spirits list navigation', 'Screen reader text for the pagination heading on the post type listing screen. Default “Posts list navigation”/”Pages list navigation”. Added in 4.4', 'default'),
-		'items_list' => _x('Spirits list', 'Screen reader text for the items list heading on the post type listing screen. Default “Posts list”/”Pages list”. Added in 4.4', 'default'),
+		'featured_image' => _x('Spirit featured Image', 'Overrides the "Featured Image" phrase for this post type. Added in 4.3', 'default'),
+		'set_featured_image' => _x('Set featured image', 'Overrides the "Set featured image" phrase for this post type. Added in 4.3', 'default'),
+		'remove_featured_image' => _x('Remove featured image', 'Overrides the "Remove featured image" phrase for this post type. Added in 4.3', 'default'),
+		'use_featured_image' => _x('Use as featured image', 'Overrides the "Use as featured image" phrase for this post type. Added in 4.3', 'default'),
+		'archives' => _x('Spirit archives', 'The post type archive label used in nav menus. Default "Post Archives". Added in 4.4', 'default'),
+		'insert_into_item' => _x('Insert into Spirit', 'Overrides the "Insert into post"/"Insert into page" phrase (used when inserting media into a post). Added in 4.4', 'default'),
+		'uploaded_to_this_item' => _x('Uploaded to this Spirit', 'Overrides the "Uploaded to this post"/"Uploaded to this page" phrase (used when viewing media attached to a post). Added in 4.4', 'default'),
+		'filter_items_list' => _x('Filter Spirits list', 'Screen reader text for the filter links heading on the post type listing screen. Default "Filter posts list"/Filter pages list". Added in 4.4', 'default'),
+		'items_list_navigation' => _x('Spirits list navigation', 'Screen reader text for the pagination heading on the post type listing screen. Default "Posts list navigation"/Pages list navigation". Added in 4.4', 'default'),
+		'items_list' => _x('Spirits list', 'Screen reader text for the items list heading on the post type listing screen. Default "Posts list"/Pages list". Added in 4.4', 'default'),
 	);
 
 	$args = array(
@@ -345,16 +345,16 @@ function ology_menu_post_type_init()
 		'parent_item_colon' => __('Parent Menus:', 'default'),
 		'not_found' => __('No Menus found.', 'default'),
 		'not_found_in_trash' => __('No Menus found in Trash.', 'default'),
-		'featured_image' => _x('Menu featured Image', 'Overrides the “Featured Image” phrase for this post type. Added in 4.3', 'default'),
-		'set_featured_image' => _x('Set featured image', 'Overrides the “Set featured image” phrase for this post type. Added in 4.3', 'default'),
-		'remove_featured_image' => _x('Remove featured image', 'Overrides the “Remove featured image” phrase for this post type. Added in 4.3', 'default'),
-		'use_featured_image' => _x('Use as featured image', 'Overrides the “Use as featured image” phrase for this post type. Added in 4.3', 'default'),
-		'archives' => _x('Menu archives', 'The post type archive label used in nav menus. Default “Post Archives”. Added in 4.4', 'default'),
-		'insert_into_item' => _x('Insert into Menu', 'Overrides the “Insert into post”/”Insert into page” phrase (used when inserting media into a post). Added in 4.4', 'default'),
-		'uploaded_to_this_item' => _x('Uploaded to this Menu', 'Overrides the “Uploaded to this post”/”Uploaded to this page” phrase (used when viewing media attached to a post). Added in 4.4', 'default'),
-		'filter_items_list' => _x('Filter Menus list', 'Screen reader text for the filter links heading on the post type listing screen. Default “Filter posts list”/”Filter pages list”. Added in 4.4', 'default'),
-		'items_list_navigation' => _x('Menus list navigation', 'Screen reader text for the pagination heading on the post type listing screen. Default “Posts list navigation”/”Pages list navigation”. Added in 4.4', 'default'),
-		'items_list' => _x('Menus list', 'Screen reader text for the items list heading on the post type listing screen. Default “Posts list”/”Pages list”. Added in 4.4', 'default'),
+		'featured_image' => _x('Menu featured Image', 'Overrides the "Featured Image" phrase for this post type. Added in 4.3', 'default'),
+		'set_featured_image' => _x('Set featured image', 'Overrides the "Set featured image" phrase for this post type. Added in 4.3', 'default'),
+		'remove_featured_image' => _x('Remove featured image', 'Overrides the "Remove featured image" phrase for this post type. Added in 4.3', 'default'),
+		'use_featured_image' => _x('Use as featured image', 'Overrides the "Use as featured image" phrase for this post type. Added in 4.3', 'default'),
+		'archives' => _x('Menu archives', 'The post type archive label used in nav menus. Default "Post Archives". Added in 4.4', 'default'),
+		'insert_into_item' => _x('Insert into Menu', 'Overrides the "Insert into post"/"Insert into page" phrase (used when inserting media into a post). Added in 4.4', 'default'),
+		'uploaded_to_this_item' => _x('Uploaded to this Menu', 'Overrides the "Uploaded to this post"/"Uploaded to this page" phrase (used when viewing media attached to a post). Added in 4.4', 'default'),
+		'filter_items_list' => _x('Filter Menus list', 'Screen reader text for the filter links heading on the post type listing screen. Default "Filter posts list"/Filter pages list". Added in 4.4', 'default'),
+		'items_list_navigation' => _x('Menus list navigation', 'Screen reader text for the pagination heading on the post type listing screen. Default "Posts list navigation"/Pages list navigation". Added in 4.4', 'default'),
+		'items_list' => _x('Menus list', 'Screen reader text for the items list heading on the post type listing screen. Default "Posts list"/Pages list". Added in 4.4', 'default'),
 	);
 
 	$args = array(
@@ -401,16 +401,16 @@ function ology_custom_containers()
 				'parent_item_colon' => __('Parent Containers:', 'default'),
 				'not_found' => __('No Containers found.', 'default'),
 				'not_found_in_trash' => __('No Containers found in Trash.', 'default'),
-				'featured_image' => _x('Container featured Image', 'Overrides the “Featured Image” phrase for this post type. Added in 4.3', 'default'),
-				'set_featured_image' => _x('Set featured image', 'Overrides the “Set featured image” phrase for this post type. Added in 4.3', 'default'),
-				'remove_featured_image' => _x('Remove featured image', 'Overrides the “Remove featured image” phrase for this post type. Added in 4.3', 'default'),
-				'use_featured_image' => _x('Use as featured image', 'Overrides the “Use as featured image” phrase for this post type. Added in 4.3', 'default'),
-				'archives' => _x('Container archives', 'The post type archive label used in nav menus. Default “Post Archives”. Added in 4.4', 'default'),
-				'insert_into_item' => _x('Insert into Container', 'Overrides the “Insert into post”/”Insert into page” phrase (used when inserting media into a post). Added in 4.4', 'default'),
-				'uploaded_to_this_item' => _x('Uploaded to this Container', 'Overrides the “Uploaded to this post”/”Uploaded to this page” phrase (used when viewing media attached to a post). Added in 4.4', 'default'),
-				'filter_items_list' => _x('Filter Containers list', 'Screen reader text for the filter links heading on the post type listing screen. Default “Filter posts list”/”Filter pages list”. Added in 4.4', 'default'),
-				'items_list_navigation' => _x('Containers list navigation', 'Screen reader text for the pagination heading on the post type listing screen. Default “Posts list navigation”/”Pages list navigation”. Added in 4.4', 'default'),
-				'items_list' => _x('Containers list', 'Screen reader text for the items list heading on the post type listing screen. Default “Posts list”/”Pages list”. Added in 4.4', 'default'),
+				'featured_image' => _x('Container featured Image', 'Overrides the "Featured Image" phrase for this post type. Added in 4.3', 'default'),
+				'set_featured_image' => _x('Set featured image', 'Overrides the "Set featured image" phrase for this post type. Added in 4.3', 'default'),
+				'remove_featured_image' => _x('Remove featured image', 'Overrides the "Remove featured image" phrase for this post type. Added in 4.3', 'default'),
+				'use_featured_image' => _x('Use as featured image', 'Overrides the "Use as featured image" phrase for this post type. Added in 4.3', 'default'),
+				'archives' => _x('Container archives', 'The post type archive label used in nav menus. Default "Post Archives". Added in 4.4', 'default'),
+				'insert_into_item' => _x('Insert into Container', 'Overrides the "Insert into post"/"Insert into page" phrase (used when inserting media into a post). Added in 4.4', 'default'),
+				'uploaded_to_this_item' => _x('Uploaded to this Container', 'Overrides the "Uploaded to this post"/"Uploaded to this page" phrase (used when viewing media attached to a post). Added in 4.4', 'default'),
+				'filter_items_list' => _x('Filter Containers list', 'Screen reader text for the filter links heading on the post type listing screen. Default "Filter posts list"/Filter pages list". Added in 4.4', 'default'),
+				'items_list_navigation' => _x('Containers list navigation', 'Screen reader text for the pagination heading on the post type listing screen. Default "Posts list navigation"/Pages list navigation". Added in 4.4', 'default'),
+				'items_list' => _x('Containers list', 'Screen reader text for the items list heading on the post type listing screen. Default "Posts list"/Pages list". Added in 4.4', 'default'),
 			),
 			'description' => 'A list of Ology container sizes for',
 			'show_ui' => true,
@@ -455,16 +455,16 @@ function ology_custom_locations()
 				'parent_item_colon' => __('Parent Locations:', 'default'),
 				'not_found' => __('No Locations found.', 'default'),
 				'not_found_in_trash' => __('No Locations found in Trash.', 'default'),
-				'featured_image' => _x('Location featured Image', 'Overrides the “Featured Image” phrase for this post type. Added in 4.3', 'default'),
-				'set_featured_image' => _x('Set featured image', 'Overrides the “Set featured image” phrase for this post type. Added in 4.3', 'default'),
-				'remove_featured_image' => _x('Remove featured image', 'Overrides the “Remove featured image” phrase for this post type. Added in 4.3', 'default'),
-				'use_featured_image' => _x('Use as featured image', 'Overrides the “Use as featured image” phrase for this post type. Added in 4.3', 'default'),
-				'archives' => _x('Location archives', 'The post type archive label used in nav menus. Default “Post Archives”. Added in 4.4', 'default'),
-				'insert_into_item' => _x('Insert into Location', 'Overrides the “Insert into post”/”Insert into page” phrase (used when inserting media into a post). Added in 4.4', 'default'),
-				'uploaded_to_this_item' => _x('Uploaded to this Location', 'Overrides the “Uploaded to this post”/”Uploaded to this page” phrase (used when viewing media attached to a post). Added in 4.4', 'default'),
-				'filter_items_list' => _x('Filter Locations list', 'Screen reader text for the filter links heading on the post type listing screen. Default “Filter posts list”/”Filter pages list”. Added in 4.4', 'default'),
-				'items_list_navigation' => _x('Locations list navigation', 'Screen reader text for the pagination heading on the post type listing screen. Default “Posts list navigation”/”Pages list navigation”. Added in 4.4', 'default'),
-				'items_list' => _x('Locations list', 'Screen reader text for the items list heading on the post type listing screen. Default “Posts list”/”Pages list”. Added in 4.4', 'default'),
+				'featured_image' => _x('Location featured Image', 'Overrides the "Featured Image" phrase for this post type. Added in 4.3', 'default'),
+				'set_featured_image' => _x('Set featured image', 'Overrides the "Set featured image" phrase for this post type. Added in 4.3', 'default'),
+				'remove_featured_image' => _x('Remove featured image', 'Overrides the "Remove featured image" phrase for this post type. Added in 4.3', 'default'),
+				'use_featured_image' => _x('Use as featured image', 'Overrides the "Use as featured image" phrase for this post type. Added in 4.3', 'default'),
+				'archives' => _x('Location archives', 'The post type archive label used in nav menus. Default "Post Archives". Added in 4.4', 'default'),
+				'insert_into_item' => _x('Insert into Location', 'Overrides the "Insert into post"/"Insert into page" phrase (used when inserting media into a post). Added in 4.4', 'default'),
+				'uploaded_to_this_item' => _x('Uploaded to this Location', 'Overrides the "Uploaded to this post"/"Uploaded to this page" phrase (used when viewing media attached to a post). Added in 4.4', 'default'),
+				'filter_items_list' => _x('Filter Locations list', 'Screen reader text for the filter links heading on the post type listing screen. Default "Filter posts list"/Filter pages list". Added in 4.4', 'default'),
+				'items_list_navigation' => _x('Locations list navigation', 'Screen reader text for the pagination heading on the post type listing screen. Default "Posts list navigation"/Pages list navigation". Added in 4.4', 'default'),
+				'items_list' => _x('Locations list', 'Screen reader text for the items list heading on the post type listing screen. Default "Posts list"/Pages list". Added in 4.4', 'default'),
 			),
 			'description' => 'A list of Ology Locations',
 			'show_ui' => true,
@@ -493,16 +493,16 @@ function ology_pinball_leaderboard_post_type_init()
 		'parent_item_colon' => __('Parent Leaderboard:', 'default'),
 		'not_found' => __('No leaderboards found.', 'default'),
 		'not_found_in_trash' => __('No leaderboards found in Trash.', 'default'),
-		'featured_image' => _x('Leaderboard featured Image', 'Overrides the “Featured Image” phrase for this post type. Added in 4.3', 'default'),
-		'set_featured_image' => _x('Set featured image', 'Overrides the “Set featured image” phrase for this post type. Added in 4.3', 'default'),
-		'remove_featured_image' => _x('Remove featured image', 'Overrides the “Remove featured image” phrase for this post type. Added in 4.3', 'default'),
-		'use_featured_image' => _x('Use as featured image', 'Overrides the “Use as featured image” phrase for this post type. Added in 4.3', 'default'),
-		'archives' => _x('Leaderboard archives', 'The post type archive label used in nav menus. Default “Post Archives”. Added in 4.4', 'default'),
-		'insert_into_item' => _x('Insert into leaderboard', 'Overrides the “Insert into post”/”Insert into page” phrase (used when inserting media into a post). Added in 4.4', 'default'),
-		'uploaded_to_this_item' => _x('Uploaded to this leaderboard', 'Overrides the “Uploaded to this post”/”Uploaded to this page” phrase (used when viewing media attached to a post). Added in 4.4', 'default'),
-		'filter_items_list' => _x('Filter leaderboards list', 'Screen reader text for the filter links heading on the post type listing screen. Default “Filter posts list”/”Filter pages list”. Added in 4.4', 'default'),
-		'items_list_navigation' => _x('Leaderboards list navigation', 'Screen reader text for the pagination heading on the post type listing screen. Default “Posts list navigation”/”Pages list navigation”. Added in 4.4', 'default'),
-		'items_list' => _x('Leaderboards list', 'Screen reader text for the items list heading on the post type listing screen. Default “Posts list”/”Pages list”. Added in 4.4', 'default'),
+		'featured_image' => _x('Leaderboard featured Image', 'Overrides the "Featured Image" phrase for this post type. Added in 4.3', 'default'),
+		'set_featured_image' => _x('Set featured image', 'Overrides the "Set featured image" phrase for this post type. Added in 4.3', 'default'),
+		'remove_featured_image' => _x('Remove featured image', 'Overrides the "Remove featured image" phrase for this post type. Added in 4.3', 'default'),
+		'use_featured_image' => _x('Use as featured image', 'Overrides the "Use as featured image" phrase for this post type. Added in 4.3', 'default'),
+		'archives' => _x('Leaderboard archives', 'The post type archive label used in nav menus. Default "Post Archives". Added in 4.4', 'default'),
+		'insert_into_item' => _x('Insert into leaderboard', 'Overrides the "Insert into post"/"Insert into page" phrase (used when inserting media into a post). Added in 4.4', 'default'),
+		'uploaded_to_this_item' => _x('Uploaded to this leaderboard', 'Overrides the "Uploaded to this post"/"Uploaded to this page" phrase (used when viewing media attached to a post). Added in 4.4', 'default'),
+		'filter_items_list' => _x('Filter leaderboards list', 'Screen reader text for the filter links heading on the post type listing screen. Default "Filter posts list"/Filter pages list". Added in 4.4', 'default'),
+		'items_list_navigation' => _x('Leaderboards list navigation', 'Screen reader text for the pagination heading on the post type listing screen. Default "Posts list navigation"/Pages list navigation". Added in 4.4', 'default'),
+		'items_list' => _x('Leaderboards list', 'Screen reader text for the items list heading on the post type listing screen. Default "Posts list"/Pages list". Added in 4.4', 'default'),
 	);
 
 	$args = array(
@@ -1391,18 +1391,50 @@ function get_menus_for_location($data)
 		while ($menu_query->have_posts()) {
 			$menu_query->the_post();
 
-			// Fetch images
-			$images = get_post_meta(get_the_ID(), 'ology_file_list', true);
-			$imageArray = array();
-
-			// Convert images object to an array of objects to preserve order
-			foreach ($images as $id => $url) {
-				// Fetch alt text for the image
-				$alt_text = get_post_meta($id, '_wp_attachment_image_alt', true);
-
-				// Include alt text in the image array
-				$imageArray[] = array('id' => $id, 'url' => $url, 'alt' => $alt_text);
+			// Get current timestamp for comparison
+			$current_time = current_time('timestamp');
+			
+			// Initialize arrays for different image types
+			$scheduledImages = array();
+			$regularImages = array();
+			
+			// Process scheduled images first
+			$scheduled_images = get_post_meta(get_the_ID(), 'ology_scheduled_images', true);
+			if (is_array($scheduled_images)) {
+				foreach ($scheduled_images as $scheduled_image) {
+					// Check if the image should be displayed based on dates
+					$start_date = !empty($scheduled_image['start_date']) ? intval($scheduled_image['start_date']) : 0;
+					$end_date = !empty($scheduled_image['end_date']) ? intval($scheduled_image['end_date']) : PHP_INT_MAX;
+					
+					if ($current_time >= $start_date && $current_time <= $end_date) {
+						// Image is within the scheduled period, add it to the array
+						$image_id = ology_attachment_url_to_postid($scheduled_image['image']);
+						$scheduledImages[] = array(
+							'id' => $image_id,
+							'url' => $scheduled_image['image'],
+							'alt' => $scheduled_image['title'],
+							'scheduled' => true,
+							'start_date' => date('Y-m-d H:i:s', $start_date),
+							'end_date' => date('Y-m-d H:i:s', $end_date)
+						);
+					}
+				}
 			}
+			
+			// Process regular images
+			$images = get_post_meta(get_the_ID(), 'ology_file_list', true);
+			if (is_array($images)) {
+				foreach ($images as $id => $url) {
+					// Fetch alt text for the image
+					$alt_text = get_post_meta($id, '_wp_attachment_image_alt', true);
+
+					// Include alt text in the image array
+					$regularImages[] = array('id' => $id, 'url' => $url, 'alt' => $alt_text);
+				}
+			}
+			
+			// Combine images in the desired order: scheduled first, then regular
+			$imageArray = array_merge($scheduledImages, $regularImages);
 
 			// Add menu details to the response
 			$menus[] = array(
@@ -1412,8 +1444,6 @@ function get_menus_for_location($data)
 			);
 		}
 	}
-
-
 
 	// Query for beers at the location
 	$beer_query = new WP_Query(
@@ -1682,4 +1712,58 @@ function ology_custom_main_page()
 		<p>Welcome to the Ology plugin. Use the submenus to access different features.</p>
 	</div>
 <?php
+}
+
+/**
+ * Get attachment ID from URL - custom implementation to avoid conflict with WP core
+ */
+function ology_attachment_url_to_postid($url) {
+    // First try the WordPress core function if it exists
+    if (function_exists('attachment_url_to_postid')) {
+        $attachment_id = attachment_url_to_postid($url);
+        if ($attachment_id) {
+            return $attachment_id;
+        }
+    }
+    
+    // Fallback to custom implementation if core function fails or doesn't exist
+    global $wpdb;
+    $attachment = $wpdb->get_col($wpdb->prepare("SELECT ID FROM $wpdb->posts WHERE guid='%s';", $url));
+    return isset($attachment[0]) ? $attachment[0] : 0;
+}
+
+// Add custom column to menu_ology post type
+add_filter('manage_menu_ology_posts_columns', 'add_scheduled_images_column');
+function add_scheduled_images_column($columns) {
+    $columns['scheduled_images'] = __('Scheduled Images', 'ology-custom');
+    return $columns;
+}
+
+// Populate the custom column
+add_action('manage_menu_ology_posts_custom_column', 'populate_scheduled_images_column', 10, 2);
+function populate_scheduled_images_column($column, $post_id) {
+    if ($column === 'scheduled_images') {
+        $scheduled_images = get_post_meta($post_id, 'ology_scheduled_images', true);
+        if (!empty($scheduled_images) && is_array($scheduled_images)) {
+            $active_count = 0;
+            $current_time = current_time('timestamp');
+            
+            foreach ($scheduled_images as $image) {
+                $start_date = !empty($image['start_date']) ? intval($image['start_date']) : 0;
+                $end_date = !empty($image['end_date']) ? intval($image['end_date']) : PHP_INT_MAX;
+                
+                if ($current_time >= $start_date && $current_time <= $end_date) {
+                    $active_count++;
+                }
+            }
+            
+            echo sprintf(
+                __('%d active of %d total', 'ology-custom'),
+                $active_count,
+                count($scheduled_images)
+            );
+        } else {
+            echo __('None', 'ology-custom');
+        }
+    }
 }

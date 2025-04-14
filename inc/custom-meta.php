@@ -675,3 +675,62 @@ function ology_pinball_leaderboard_meta()
 		),
 	));
 }
+
+add_action('cmb2_admin_init', 'register_scheduled_images_metabox');
+function register_scheduled_images_metabox() {
+	$prefix = 'ology_';
+
+	$cmb = new_cmb2_box(array(
+		'id'           => $prefix . 'scheduled_images_metabox',
+		'title'        => __('Scheduled Menu Images', 'cmb2'),
+		'object_types' => array('menu_ology'), // Post type
+		'context'      => 'normal',
+		'priority'     => 'high',
+		'show_names'   => true,
+	));
+
+	$group_field_id = $cmb->add_field(array(
+		'id'          => $prefix . 'scheduled_images',
+		'type'        => 'group',
+		'description' => __('Add images with scheduling information', 'cmb2'),
+		'options'     => array(
+			'group_title'   => __('Scheduled Image {#}', 'cmb2'),
+			'add_button'    => __('Add Another Image', 'cmb2'),
+			'remove_button' => __('Remove Image', 'cmb2'),
+			'sortable'      => true,
+		),
+	));
+
+	$cmb->add_group_field($group_field_id, array(
+		'name'    => __('Image', 'cmb2'),
+		'id'      => 'image',
+		'type'    => 'file',
+		'options' => array(
+			'url' => false,
+		),
+		'text'    => array(
+			'add_upload_file_text' => 'Add Image'
+		),
+		'query_args' => array(
+			'type' => 'image',
+		),
+	));
+
+	$cmb->add_group_field($group_field_id, array(
+		'name' => __('Image Title/Alt Text', 'cmb2'),
+		'id'   => 'title',
+		'type' => 'text',
+	));
+
+	$cmb->add_group_field($group_field_id, array(
+		'name' => __('Start Date', 'cmb2'),
+		'id'   => 'start_date',
+		'type' => 'text_datetime_timestamp',
+	));
+
+	$cmb->add_group_field($group_field_id, array(
+		'name' => __('End Date', 'cmb2'),
+		'id'   => 'end_date',
+		'type' => 'text_datetime_timestamp',
+	));
+}
