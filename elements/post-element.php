@@ -1,4 +1,5 @@
 <?php
+
 namespace Elementor;
 
 if (!defined('ABSPATH'))
@@ -34,10 +35,7 @@ class Widget_OlogySpiritsPostList extends Widget_Base
 		return ['boosted_elements_progression_masonry_js'];
 	}
 
-	function Widget_OlogySpiritsPostList($widget_instance)
-	{
-
-	}
+	function Widget_OlogySpiritsPostList($widget_instance) {}
 
 	protected function register_controls()
 	{
@@ -327,7 +325,6 @@ class Widget_OlogySpiritsPostList extends Widget_Base
 			[
 				'name' => 'progression_elements_traditional_title_typography',
 				'label' => esc_html__('Typography', 'progression-elements-ontap'),
-				'scheme' => \Elementor\Core\Schemes\Typography::TYPOGRAPHY_1,
 				'selector' => '{{WRAPPER}} h2.progression-beers-title',
 			]
 		);
@@ -382,7 +379,6 @@ class Widget_OlogySpiritsPostList extends Widget_Base
 			[
 				'name' => 'ology_elements_traditional_content_typography',
 				'label' => esc_html__('Typography', 'progression-elements-ontap'),
-				'scheme' => \Elementor\Core\Schemes\Typography::TYPOGRAPHY_1,
 				'selector' => '{{WRAPPER}} .progression-studios-beers-excerpt',
 			]
 		);
@@ -439,7 +435,6 @@ class Widget_OlogySpiritsPostList extends Widget_Base
 			[
 				'name' => 'ology_elements_traditional_meta_typography',
 				'label' => esc_html__('Typography', 'progression-elements-ontap'),
-				'scheme' => \Elementor\Core\Schemes\Typography::TYPOGRAPHY_1,
 				'selector' => '{{WRAPPER}} a.progression-beer-button',
 			]
 		);
@@ -564,7 +559,6 @@ class Widget_OlogySpiritsPostList extends Widget_Base
 			[
 				'name' => 'ology_elements_load_moretypography',
 				'label' => esc_html__('Typography', 'progression-elements-ontap'),
-				'scheme' => \Elementor\Core\Schemes\Typography::TYPOGRAPHY_1,
 				'selector' => '{{WRAPPER}} .infinite-nav-pro a',
 			]
 		);
@@ -767,17 +761,11 @@ class Widget_OlogySpiritsPostList extends Widget_Base
 			[
 				'name' => 'ology_elements_filtering_typography',
 				'label' => esc_html__('Typography', 'progression-elements-ontap'),
-				'scheme' => \Elementor\Core\Schemes\Typography::TYPOGRAPHY_1,
 				'selector' => '{{WRAPPER}} ul.progression-filter-button-group li',
 			]
 		);
 
 		$this->end_controls_section();
-
-
-
-
-
 	}
 
 
@@ -851,7 +839,7 @@ class Widget_OlogySpiritsPostList extends Widget_Base
 		);
 
 		$blogloop = new \WP_Query($args);
-		?>
+?>
 
 
 
@@ -866,7 +854,7 @@ class Widget_OlogySpiritsPostList extends Widget_Base
 						$arrayIds = explode(',', $postIds); // explode value into an array of ids
 						if (count($arrayIds) <= 1) // if array contains one element or less, there's spaces after comma's, or you only entered one id
 						{
-							if (strpos($arrayIds[0], ',') !== false)// if the first array value has commas, there were spaces after ids entered
+							if (strpos($arrayIds[0], ',') !== false) // if the first array value has commas, there were spaces after ids entered
 							{
 								$arrayIds = array(); // reset array
 								$arrayIds = explode(', ', $postIds); // explode ids with space after comma's
@@ -927,24 +915,25 @@ class Widget_OlogySpiritsPostList extends Widget_Base
 						$blogloop->the_post(); ?>
 
 						<div class="progression-masonry-item ><?php $terms = get_the_terms($post->ID, 'spirit-category');
-						if (!empty($terms)):
-							foreach ($terms as $term) {
-								$term_link = get_term_link($term, 'spirit-category');
-								if (is_wp_error($term_link))
-									continue;
-								echo " " . $term->slug;
-							}
-						endif; ?>
+																if (!empty($terms)):
+																	foreach ($terms as $term) {
+																		$term_link = get_term_link($term, 'spirit-category');
+																		if (is_wp_error($term_link))
+																			continue;
+																		echo " " . $term->slug;
+																	}
+																endif; ?>
 				"><!-- .progression-masonry-item -->
 							<div class="progression-masonry-padding-blog">
 								<div class="progression-studios-isotope-animation">
 
-									<?php include (locate_template('template-parts/elementor/content-spirits.php')); ?>
+									<?php include(locate_template('template-parts/elementor/content-spirits.php')); ?>
 
 								</div><!-- close .progression-studios-isotope-animation -->
 							</div><!-- close .progression-masonry-padding-blog -->
 						</div><!-- close .progression-masonry-item -->
-					<?php endwhile; // end of the loop.  ?>
+					<?php endwhile; // end of the loop.  
+					?>
 				</div><!-- close #progression-beer-index-masonry-<?php echo esc_attr($this->get_id()); ?>  -->
 			</div><!-- close .progression-masonry-margins -->
 
@@ -1010,31 +999,35 @@ class Widget_OlogySpiritsPostList extends Widget_Base
 
 
 		<script type="text/javascript">
-			jQuery(document).ready(function ($) {
+			jQuery(document).ready(function($) {
 				'use strict';
 
 				/* Default Isotope Load Code */
 				var $container<?php echo esc_attr($this->get_id()); ?> = $("#progression-beer-index-masonry-<?php echo esc_attr($this->get_id()); ?>").isotope();
-				$container<?php echo esc_attr($this->get_id()); ?>.imagesLoaded(function () {
+				$container<?php echo esc_attr($this->get_id()); ?>.imagesLoaded(function() {
 					$(".progression-masonry-item").addClass("opacity-progression");
 					$container<?php echo esc_attr($this->get_id()); ?>.isotope({
 						itemSelector: "#progression-beer-index-masonry-<?php echo esc_attr($this->get_id()); ?> .progression-masonry-item",
 						percentPosition: true,
-						layoutMode: <?php if (!empty($settings['boosted_post_list_masonry'])): ?>"masonry"<?php else: ?>"fitRows"<?php endif; ?>
+						layoutMode: <?php if (!empty($settings['boosted_post_list_masonry'])): ?> "masonry"
+					<?php else: ?> "fitRows"
+					<?php endif; ?>
 					});
 				});
 				/* END Default Isotope Code */
 
 
 				<?php if ($settings['ology_elements_post_sorting'] == 'yes'): ?>
-					$('.progression-filter-group-<?php echo esc_attr($this->get_id()); ?>').on('click', 'li', function () {
+					$('.progression-filter-group-<?php echo esc_attr($this->get_id()); ?>').on('click', 'li', function() {
 						var filterValue = $(this).attr('data-filter');
-						$container<?php echo esc_attr($this->get_id()); ?>.isotope({ filter: filterValue });
+						$container<?php echo esc_attr($this->get_id()); ?>.isotope({
+							filter: filterValue
+						});
 					});
 
-					$('.progression-filter-group-<?php echo esc_attr($this->get_id()); ?>').each(function (i, buttonGroup) {
+					$('.progression-filter-group-<?php echo esc_attr($this->get_id()); ?>').each(function(i, buttonGroup) {
 						var $buttonGroup = $(buttonGroup);
-						$buttonGroup.on('click', 'li', function () {
+						$buttonGroup.on('click', 'li', function() {
 							$buttonGroup.find('.pro-checked').removeClass('pro-checked');
 							$(this).addClass('pro-checked');
 						});
@@ -1047,23 +1040,27 @@ class Widget_OlogySpiritsPostList extends Widget_Base
 
 					/* Begin Infinite Scroll */
 					$container<?php echo esc_attr($this->get_id()); ?>.infinitescroll({
-						errorCallback: function () { $("#infinite-nav-pro-<?php echo esc_attr($this->get_id()); ?>").delay(500).fadeOut(500, function () { $(this).remove(); }); },
-						navSelector: "#infinite-nav-pro-<?php echo esc_attr($this->get_id()); ?>",
-						nextSelector: "#infinite-nav-pro-<?php echo esc_attr($this->get_id()); ?> .nav-previous a",
-						itemSelector: "#progression-beer-index-masonry-<?php echo esc_attr($this->get_id()); ?> .progression-masonry-item",
-						loading: {
-							img: "<?php echo esc_url(get_template_directory_uri()); ?>/images/loader.gif",
-							msgText: "",
-							finishedMsg: "<div id='no-more-posts'></div>",
-							speed: 0,
-						}
-					},
+							errorCallback: function() {
+								$("#infinite-nav-pro-<?php echo esc_attr($this->get_id()); ?>").delay(500).fadeOut(500, function() {
+									$(this).remove();
+								});
+							},
+							navSelector: "#infinite-nav-pro-<?php echo esc_attr($this->get_id()); ?>",
+							nextSelector: "#infinite-nav-pro-<?php echo esc_attr($this->get_id()); ?> .nav-previous a",
+							itemSelector: "#progression-beer-index-masonry-<?php echo esc_attr($this->get_id()); ?> .progression-masonry-item",
+							loading: {
+								img: "<?php echo esc_url(get_template_directory_uri()); ?>/images/loader.gif",
+								msgText: "",
+								finishedMsg: "<div id='no-more-posts'></div>",
+								speed: 0,
+							}
+						},
 						// trigger Isotope as a callback
-						function (newElements) {
+						function(newElements) {
 
 							var $newElems = $(newElements);
 
-							$newElems.imagesLoaded(function () {
+							$newElems.imagesLoaded(function() {
 
 								$container<?php echo esc_attr($this->get_id()); ?>.isotope("appended", $newElems);
 								$(".progression-masonry-item").addClass("opacity-ology");
@@ -1080,7 +1077,7 @@ class Widget_OlogySpiritsPostList extends Widget_Base
 					/* PAUSE FOR LOAD MORE */
 					$(window).unbind(".infscr");
 					// Resume Infinite Scroll
-					$("#infinite-nav-pro-<?php echo esc_attr($this->get_id()); ?> .nav-previous a").click(function () {
+					$("#infinite-nav-pro-<?php echo esc_attr($this->get_id()); ?> .nav-previous a").click(function() {
 						$container<?php echo esc_attr($this->get_id()); ?>.infinitescroll("retrieve");
 						return false;
 					});
@@ -1095,13 +1092,11 @@ class Widget_OlogySpiritsPostList extends Widget_Base
 		<?php wp_reset_postdata(); ?>
 
 
-		<?php
+<?php
 
 	}
 
-	protected function content_template()
-	{
-	}
+	protected function content_template() {}
 }
 
 
