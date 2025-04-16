@@ -1312,14 +1312,14 @@ function ology_get_beers_api(WP_REST_Request $request)
 
 		return array(
 			'ID' => $post->ID,
-			'title' => $post->post_title,
+			'title' => html_entity_decode($post->post_title, ENT_QUOTES | ENT_HTML5, 'UTF-8'),
 			'status' => $post->post_status,
 			'content' => $post->post_content,
-			'containers' => $containers, // Add containers data to the response
-			'rating' => $rating, // Add rating to the response
-			'rating_count' => $rating_count, // Add rating count to the response
-			'ology_untappd_id' => $untappd_id, // Include Untappd ID in the response
-			'featured_image_url' => $featured_image_url // Include featured image URL in the response
+			'containers' => $containers,
+			'rating' => $rating,
+			'rating_count' => $rating_count, 
+			'ology_untappd_id' => $untappd_id, 
+			'featured_image_url' => $featured_image_url
 		);
 	}, $query->posts);
 
