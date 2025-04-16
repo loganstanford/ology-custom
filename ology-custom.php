@@ -1260,7 +1260,7 @@ function thirty_secs_cron_interval($schedules)
 
 function ology_untappd_cron_exec()
 {
-	getUntappdItems(null, true);
+	getUntappdItems(null, false);
 }
 
 
