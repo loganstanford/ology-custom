@@ -1481,7 +1481,7 @@ function get_menus_for_location($data)
 
 		$beers[] = array(
 			'ID' => $post->ID,
-			'title' => $post->post_title,
+			'title' => html_entity_decode($post->post_title, ENT_QUOTES | ENT_HTML5, 'UTF-8'),
 			'style' => getOlogyParentStyle($post->ID)->slug,
 			'description' => $post->post_excerpt,
 			'abv' => get_post_meta($post->ID, 'ology_abv', true),
